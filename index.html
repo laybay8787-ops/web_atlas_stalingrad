@@ -84,6 +84,8 @@
   </script>
   <style>
     :root {
+      --map-label-scale: 1;
+      --map-label-shadow: 4px;
       --bg-panel: rgba(255, 255, 255, 0.96);
       --bg-dark: #18181b;
       --text-main: #1f2937;
@@ -229,6 +231,7 @@
       background: #fff; border-top: 1px solid var(--border); line-height: 1.35;
     }
     .photo-caption a { color: var(--accent); }
+    .photo-card.caption-only .photo-caption { border-top: 0; }
     .status-chip {
       display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700;
       border-radius: 4px; margin-left: 6px; vertical-align: middle;
@@ -250,18 +253,18 @@
     }
     .tactical-label {
       background: rgba(153, 27, 27, 0.9); color: #fff; font-weight: 600;
-      font-size: 10.5px; padding: 1px 5px; border-radius: 3px; white-space: nowrap;
+      font-size: calc(10.5px * var(--map-label-scale, 1)); padding: 1px calc(5px * var(--map-label-scale, 1)); border-radius: 3px; white-space: nowrap;
     }
 
     /* Тёмная векторная карта 1942 г. */
     .vec-label {
-      color: #e5e9f0; font-weight: 700; font-size: 12px; letter-spacing: 0.06em;
-      text-shadow: 0 0 4px #16191e, 0 0 4px #16191e, 0 0 4px #16191e;
+      color: #e5e9f0; font-weight: 700; font-size: calc(12px * var(--map-label-scale, 1)); letter-spacing: 0.06em;
+      text-shadow: 0 0 var(--map-label-shadow, 4px) #16191e, 0 0 var(--map-label-shadow, 4px) #16191e, 0 0 var(--map-label-shadow, 4px) #16191e;
       white-space: nowrap;
     }
     .vec-label-sm {
-      color: #abb2bf; font-weight: 600; font-size: 10.5px;
-      text-shadow: 0 0 4px #16191e, 0 0 4px #16191e; white-space: nowrap;
+      color: #abb2bf; font-weight: 600; font-size: calc(10.5px * var(--map-label-scale, 1));
+      text-shadow: 0 0 var(--map-label-shadow, 4px) #16191e, 0 0 var(--map-label-shadow, 4px) #16191e; white-space: nowrap;
     }
     .vec-label-red { color: #ff8080; }
     .vec-label-gold { color: #ebcb8b; }
@@ -272,9 +275,10 @@
     }
     .leaflet-tooltip-vec {
       background: #1e222a; border: 1px solid #3b4252; color: #d8dee9;
-      border-radius: 4px; font-size: 11.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      border-radius: 4px; font-size: calc(11.5px * var(--map-label-scale, 1)); box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
     .leaflet-tooltip-vec .old-name { color: #ebcb8b; }
+    .leaflet-tooltip:not(.leaflet-tooltip-vec) { font-size: calc(12px * var(--map-label-scale, 1)); }
     .era-hint {
       position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%);
       z-index: 999; background: rgba(24,24,27,0.9); color: #fff;
@@ -629,11 +633,10 @@
     <div>
       <div class="section-hdr">5. Объекты: судьба застройки</div>
       <div class="layer-option">
-        <label><input type="checkbox" id="chkObjects" checked><span>Сохранившиеся и утраченные здания</span></label>
-        <div class="layer-desc">
-          <span class="badge badge-new">Новая функция</span><br>
-          Малоизвестные объекты: ул. Огарёва, Дом грузчиков, Дом коммунальщиков (консервщиков) и др.
-          Нажмите на маркер, чтобы открыть карточку с судьбой здания.
+        <label><input type="checkbox" id="chkObjects" aria-describedby="objectsHelp"><span>Сохранившиеся и утраченные здания</span></label>
+        <div class="layer-desc" id="objectsHelp">
+          <span class="badge badge-new">9 объектов</span><br>
+          Отметьте, чтобы показать все объекты и автоматически увидеть их расположение по городу. Нажмите на маркер, чтобы открыть историческую карточку здания. При выключении основной маркер Дома Павлова остаётся на карте.
         </div>
       </div>
       <div class="legend-list" style="margin-top:8px;">
@@ -836,6 +839,19 @@ const map = L.map('map', {
 });
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(map);
+// Современные объекты вынесены из исторической панели: шторка/прозрачность не должны их обрезать.
+const objectsPane = map.createPane('objectsPane');
+objectsPane.style.zIndex = 625;
+const objectsRenderer = L.canvas({ pane: 'objectsPane', padding: 0.5 });
+// Подписи уменьшаются при приближении, чтобы не перекрывать карту на телефонах.
+function updateMapLabelScale() {
+  const zoom = map.getZoom();
+  const scale = Math.max(0.72, Math.min(1, 1 - Math.max(0, zoom - 12) * 0.04));
+  document.documentElement.style.setProperty('--map-label-scale', scale.toFixed(2));
+  document.documentElement.style.setProperty('--map-label-shadow', (4 * scale).toFixed(2) + 'px');
+}
+map.on('zoomend', updateMapLabelScale);
+updateMapLabelScale();
 // Source credits are shown in the accessible “Источники” dialog, not over the map.
 
 // Панели исторических слоёв:
@@ -974,39 +990,61 @@ const OLD_NAMES = {
   'улица Милиционера Буханцева': 'Вокзальная',
 };
 
-// Улицы
+// Улицы — агрегируем отрезки по классу и названию, чтобы уменьшить число объектов Leaflet.
+// Подписи сохраняются: несколько геометрических отрезков одной улицы образуют один MultiPolyline.
+const STREET_STYLES = {
+  major: { color: '#ebcb8b', weight: 2.4, opacity: 0.95 },
+  mid:   { color: '#c7956f', weight: 1.6, opacity: 0.9 },
+  minor: { color: '#4c566a', weight: 1.2, opacity: 0.85 }
+};
 const streetLayers = { major: [], mid: [], minor: [] };
+const namedStreetSegments = { major: new Map(), mid: new Map(), minor: new Map() };
+const unnamedStreetSegments = { major: [], mid: [], minor: [] };
 CITY_DATA.streets.forEach(s => {
   const cls = s[0], name = s[1], pts = s[2];
-  const opts = {
-    major: { color: '#ebcb8b', weight: 2.4, opacity: 0.95 },
-    mid:   { color: '#c7956f', weight: 1.6, opacity: 0.9 },
-    minor: { color: '#4c566a', weight: 1.2, opacity: 0.85 }
-  }[cls];
-  const line = L.polyline(pts, { pane: 'st1942Pane', ...opts });
+  if (!STREET_STYLES[cls] || !Array.isArray(pts) || pts.length < 2) return;
   if (name) {
+    if (!namedStreetSegments[cls].has(name)) namedStreetSegments[cls].set(name, []);
+    namedStreetSegments[cls].get(name).push(pts);
+  } else {
+    unnamedStreetSegments[cls].push(pts);
+  }
+});
+Object.keys(STREET_STYLES).forEach(cls => {
+  const opts = STREET_STYLES[cls];
+  namedStreetSegments[cls].forEach((segments, name) => {
     const old = OLD_NAMES[name];
+    const line = L.polyline(segments, { pane: 'st1942Pane', ...opts, smoothFactor: 1.5 });
     line.bindTooltip(
       old ? `${name}<br><span class="old-name">в 1942 г.: ${old}</span>` : name,
       { className: 'leaflet-tooltip-vec', sticky: true }
     );
+    line.addTo(stalingrad1942VectorGroup);
+    streetLayers[cls].push(line);
+  });
+  if (unnamedStreetSegments[cls].length) {
+    const line = L.polyline(unnamedStreetSegments[cls], {
+      pane: 'st1942Pane', ...opts, interactive: false, smoothFactor: 1.5
+    }).addTo(stalingrad1942VectorGroup);
+    streetLayers[cls].push(line);
   }
-  line.addTo(stalingrad1942VectorGroup);
-  streetLayers[cls].push(line);
 });
 
-// Железные дороги
-CITY_DATA.rails.forEach(r => {
-  const isTram = r[0] === 1;
-  L.polyline(r[1], {
-    pane: 'st1942Pane',
-    color: isTram ? '#b48ead' : '#111317',
-    weight: isTram ? 1.6 : 3.2,
-    dashArray: isTram ? '3,3' : null,
-    opacity: 0.9
-  }).bindTooltip(isTram ? 'Трамвайная линия' : 'Железная дорога (довоенная)', { className: 'leaflet-tooltip-vec', sticky: true })
+// Железнодорожные и трамвайные линии также объединены: это убирает сотни отдельных слоёв.
+const railSegments = { rail: [], tram: [] };
+CITY_DATA.rails.forEach(r => railSegments[r[0] === 1 ? 'tram' : 'rail'].push(r[1]));
+if (railSegments.rail.length) {
+  L.polyline(railSegments.rail, {
+    pane: 'st1942Pane', color: '#111317', weight: 3.2, opacity: 0.9, smoothFactor: 1.5
+  }).bindTooltip('Железная дорога (довоенная)', { className: 'leaflet-tooltip-vec', sticky: true })
     .addTo(stalingrad1942VectorGroup);
-});
+}
+if (railSegments.tram.length) {
+  L.polyline(railSegments.tram, {
+    pane: 'st1942Pane', color: '#b48ead', weight: 1.6, dashArray: '3,3', opacity: 0.9, smoothFactor: 1.5
+  }).bindTooltip('Трамвайная линия', { className: 'leaflet-tooltip-vec', sticky: true })
+    .addTo(stalingrad1942VectorGroup);
+}
 
 // ============ Линия фронта (19 ноября 1942 г.) ============
 const FRONT_LINE = [
@@ -1268,12 +1306,12 @@ const OBJECTS = {
   }
 };
 
-const objectsGroup = L.layerGroup().addTo(map);
+const objectsGroup = L.featureGroup();
 stalingrad1942VectorGroup.addTo(map);
 frontLineGroup.addTo(map);
 Object.entries(OBJECTS).forEach(([key, o]) => {
   const m = L.circleMarker(o.pos, {
-    pane: 'st1942Pane',
+    pane: 'objectsPane', renderer: objectsRenderer,
     radius: 7, color: '#ffffff', weight: 2, fillColor: o.color, fillOpacity: 1
   }).addTo(objectsGroup);
   m.bindTooltip(`<strong>${o.title}</strong><br>${o.statusTxt}`, { direction: 'top' });
@@ -1294,9 +1332,8 @@ function showObjectCard(key) {
   html += '</table>';
   html += `<div style="font-size:12.5px;line-height:1.45;">${o.desc}</div>`;
   (o.photos || []).forEach(ph => {
-    // файловые фото лежат в папке photos/ рядом с сайтом, остальные — в CITY_DATA
-    const img = ph.startsWith('photos/') ? ph : CITY_DATA.photos[ph];
-    if (!img) return;
+    // В опубликованном репозитории папки photos/ нет: для таких фото показываем
+    // источник/подпись без запроса к отсутствующему файлу и без 404.
     const caps = {
       pavlov1943: '<strong>Дом Павлова после окончания битвы, 1943 г.</strong><br>Источник: РГВА / Wikimedia Commons (<a href="https://en.wikipedia.org/wiki/File:Pavlov%27s_House.jpg" target="_blank" rel="noopener noreferrer">карточка файла</a>).',
       pavlov2021: '<strong>Современный вид со стороны ул. Советской, 2021 г.</strong><br>Мемориальная стена-памятник (1985 г.). Фото: Bestalex, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/wiki/File:Volgograd._View_of_Pavlov%27s_House_from_Sovetskaya_Street_(January_2021).jpg" target="_blank" rel="noopener noreferrer">источник</a>).',
@@ -1314,6 +1351,12 @@ function showObjectCard(key) {
       'photos/vokzal_modern.jpg': '<strong>Современный вокзал Волгоград-1</strong><br>Здание 1954 г. (арх. А. Волошинов и др.). Фото: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:Volgograd_Station_1.jpg" target="_blank" rel="noopener noreferrer">карточка файла</a>).',
       'photos/universmag_1943.jpg': '<strong>Центральный универмаг после боёв, 1943 г.</strong><br>В подвале 31 января 1943 г. капитулировал фельдмаршал Паулюс. Источник: waralbum.ru (<a href="https://waralbum.ru/43431/" target="_blank" rel="noopener noreferrer">страница фото</a>).'
     };
+    if (ph.startsWith('photos/')) {
+      html += `<div class="photo-card caption-only"><div class="photo-caption">${caps[ph] || '<strong>Файл фотографии не включён в публикацию.</strong>'}</div></div>`;
+      return;
+    }
+    const img = CITY_DATA.photos[ph];
+    if (!img) return;
     html += `<div class="photo-card"><img src="${img}" alt="Иллюстрация: ${o.title}" loading="lazy" onerror="this.closest('.photo-card').style.display='none'"><div class="photo-caption">${caps[ph] || ''}</div></div>`;
   });
   html += `<div style="font-size:11px;color:var(--text-muted);">Источники: <a href="https://volmap.ru/stalingrad43-map" target="_blank" rel="noopener noreferrer">volmap.ru</a>, <a href="https://voopiik34.ru/object/dom-gruzchikov-zhiloj-dom-restoran-gruziya-upravlenie-rechnogo-porta-g-volgograd-voroshilovskij-rajon-ul-raboche-krestyanskaya-22/" target="_blank" rel="noopener noreferrer">ВООПИиК (Дом грузчиков)</a>, <a href="http://stalingrad1942-1943.ru/taxonomy/term/2988" target="_blank" rel="noopener noreferrer">stalingrad1942-1943.ru</a>, <a href="https://bloknot-volgograd.ru/news/togda-i-seychas-zhiloy-dom-v-volgograde-perezhivsh-1369356" target="_blank" rel="noopener noreferrer">bloknot-volgograd.ru</a></div>`;
@@ -1324,7 +1367,7 @@ function showObjectCard(key) {
 
 // Маркер Дома Павлова (поверх всего)
 const topMarksPane = map.createPane('topMarksPane');
-topMarksPane.style.zIndex = 470; // выше аэрофото (440) и карты 1942 г. (450)
+topMarksPane.style.zIndex = 640; // современный маркер не должен попадать под историческую шторку
 const pavlovMarker = L.circleMarker([48.716086, 44.531389], {
   pane: 'topMarksPane',
   radius: 9, color: '#ffffff', weight: 2.5, fillColor: '#991b1b', fillOpacity: 1
@@ -1346,20 +1389,24 @@ const NAV_TARGETS = {
   stz:       { coords: [48.793800, 44.602900], zoom: 15 }
 };
 document.getElementById('locSelect').addEventListener('change', e => {
-  const t = NAV_TARGETS[e.target.value];
-  if (t) {
-    map.flyTo(t.coords, t.zoom, { duration: 1 });
-    if (e.target.value === 'pavlov') showObjectCard('pavlov');
-    if (e.target.value === 'ogareva') showObjectCard('gruzchikov');
-    if (e.target.value === 'kommunal') showObjectCard('kommunal');
-  }
+  const key = e.target.value;
+  const target = NAV_TARGETS[key];
+  if (!target) return;
+  map.flyTo(target.coords, target.zoom, { duration: 0.8 });
+  const cardsByTarget = {
+    pavlov: 'pavlov', zabolotny: 'zabolotny', mill: 'mill',
+    ogareva: 'gruzchikov', kommunal: 'kommunal', elevator: 'elevator', vokzal: 'vokzal'
+  };
+  if (cardsByTarget[key]) showObjectCard(cardsByTarget[key]);
+  else document.getElementById('objectCard').classList.add('hidden');
 });
 document.getElementById('btnFlyPavlov').addEventListener('click', () => {
   map.flyTo(NAV_TARGETS.pavlov.coords, 18, { duration: 0.8 });
   showObjectCard('pavlov');
 });
 document.getElementById('btnOverview').addEventListener('click', () => {
-  map.flyTo([48.7158, 44.5350], 13, { duration: 1 });
+  document.getElementById('objectCard').classList.add('hidden');
+  map.flyTo([48.7158, 44.5350], 13, { duration: 0.7 });
 });
 function parseCoordinateInput(value) {
   const parts = value.trim() ? value.trim().split(/[,;\s]+/).map(Number) : [];
@@ -1430,15 +1477,10 @@ document.getElementById('chkAerial43').addEventListener('change', e => {
 });
 
 document.getElementById('chkVector1942').addEventListener('change', e => {
-  if (e.target.checked) {
-    stalingrad1942VectorGroup.addTo(map);
-    if (document.getElementById('chkFrontLine').checked) frontLineGroup.addTo(map);
-    if (document.getElementById('chkVecLabels').checked) vecLabelsGroup.addTo(map);
-  } else {
-    map.removeLayer(stalingrad1942VectorGroup);
-    map.removeLayer(frontLineGroup);
-    map.removeLayer(vecLabelsGroup);
-  }
+  // Этот переключатель управляет только векторной подложкой. Линия фронта и подписи
+  // имеют собственные флажки и не должны расходиться с их состоянием.
+  if (e.target.checked) stalingrad1942VectorGroup.addTo(map);
+  else map.removeLayer(stalingrad1942VectorGroup);
 });
 document.getElementById('chkFrontLine').addEventListener('change', e => {
   if (e.target.checked) frontLineGroup.addTo(map);
@@ -1457,8 +1499,29 @@ document.getElementById('chkAerial1943').addEventListener('change', e => {
   else map.removeLayer(aerial1943Overlay);
 });
 document.getElementById('chkObjects').addEventListener('change', e => {
-  if (e.target.checked) objectsGroup.addTo(map);
-  else map.removeLayer(objectsGroup);
+  const visible = e.target.checked;
+  const card = document.getElementById('objectCard');
+  if (visible) {
+    // На мобильном экране закрываем панель слоёв, чтобы она не закрывала результат.
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      sidebarLeft.classList.remove('mobile-open');
+      btnToggleSidebar.setAttribute('aria-expanded', 'false');
+    }
+    // На карте должен быть ровно один маркер Дома Павлова: при показе всего набора
+    // заменяем основной навигационный маркер на маркер здания из общего слоя.
+    if (map.hasLayer(pavlovMarker)) map.removeLayer(pavlovMarker);
+    objectsGroup.addTo(map);
+    const bounds = objectsGroup.getBounds();
+    if (bounds.isValid()) {
+      // Показываем пользователю результат включения слоя сразу; ограничиваем масштаб обзорным видом.
+      const padding = window.matchMedia('(max-width: 900px)').matches ? [30, 30] : [48, 48];
+      map.fitBounds(bounds, { padding, maxZoom: 13, animate: false });
+    }
+  } else {
+    map.removeLayer(objectsGroup);
+    if (!map.hasLayer(pavlovMarker)) pavlovMarker.addTo(map);
+    card.classList.add('hidden');
+  }
 });
 
 document.getElementById('rngOpacity').addEventListener('input', e => {
@@ -1531,6 +1594,16 @@ function applyPaneClip(splitX) {
   aerialAnnotPane.style.clip = clipVal;
 }
 
+let swipeClipScheduled = false;
+function scheduleSwipeClip() {
+  if (swipeClipScheduled) return;
+  swipeClipScheduled = true;
+  requestAnimationFrame(() => {
+    swipeClipScheduled = false;
+    updateSwipeClip();
+  });
+}
+
 chkSwipe.addEventListener('change', () => {
   swipeRow.style.display = chkSwipe.checked ? 'flex' : 'none';
   if (chkSwipe.checked) {
@@ -1544,12 +1617,12 @@ chkSwipe.addEventListener('change', () => {
   }
   updateSwipeClip();
 });
-rngSwipe.addEventListener('input', updateSwipeClip);
-map.on('move zoom resize', updateSwipeClip);
+rngSwipe.addEventListener('input', scheduleSwipeClip);
+map.on('move zoom resize', scheduleSwipeClip);
 window.addEventListener('resize', () => {
   requestAnimationFrame(() => {
     map.invalidateSize({ pan: false });
-    updateSwipeClip();
+    scheduleSwipeClip();
   });
 }, { passive: true });
 
