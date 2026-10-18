@@ -108,7 +108,9 @@
       position: absolute; top: 12px; left: 12px; z-index: 1300;
       display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
       max-width: calc(100vw - 396px);
+      pointer-events: none; /* сама панель не перехватывает клики по карте (BUG-002) */
     }
+    .top-bar > * { pointer-events: auto; }
     @media (max-width: 900px) {
       .top-bar { max-width: calc(100vw - 24px); }
       .sidebar-left { width: 290px; top: 210px; }
@@ -193,6 +195,12 @@
       position: absolute; top: 0; bottom: 0; left: 50%; width: 3px;
       background: var(--accent); z-index: 900; pointer-events: none; display: none;
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      cursor: col-resize;
+    }
+    /* Увеличенная зона захвата: разделитель шторки можно перетаскивать (BUG-005) */
+    #swipeDivider::after {
+      content: ''; position: absolute; top: 0; bottom: 0; left: -7px; right: -7px;
+      pointer-events: auto; touch-action: none; cursor: col-resize;
     }
     .swipe-handle {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -244,6 +252,8 @@
       padding: 0 14px; font-size: 11.5px; color: var(--text-muted);
     }
     .bottom-status a { color: var(--accent); }
+    /* Управления картой не должны уходить под нижнюю панель статуса */
+    .leaflet-bottom.leaflet-right { bottom: 34px; }
 
     /* Подписи исторических объектов на карте */
     .hist-label {
@@ -356,7 +366,16 @@
       .bottom-status > div:last-child { display: flex; }
       .era-hint { max-width: calc(100vw - 24px); bottom: calc(34px + env(safe-area-inset-bottom)); text-align: center; }
       .swipe-tag-left, .swipe-tag-right { font-size: 10px; padding: 4px 6px; }
-      .leaflet-bottom { bottom: 24px; }
+      .leaflet-bottom { bottom: 32px; }
+    }
+
+    /* Текстовый отклик поля координат (BUG-004) и полное имя выбранного места на мобильных (BUG-006) */
+    .coord-feedback { flex-basis: 100%; width: 100%; font-size: 11.5px; line-height: 1.35; color: var(--text-muted); overflow-wrap: anywhere; }
+    .coord-feedback.error { color: #b91c1c; }
+    .coord-feedback.ok { color: #166534; }
+    .loc-select-full { display: none; }
+    @media (max-width: 900px) {
+      .loc-select-full { display: block; grid-column: 1 / -1; font-size: 11px; color: var(--text-muted); line-height: 1.3; padding: 0 2px; }
     }
 
     @media (max-width: 900px) and (max-height: 560px) {
@@ -521,6 +540,7 @@
         <option value="mamayev">Мамаев курган (высота 102,0)</option>
         <option value="stz">Тракторный завод (СТЗ)</option>
       </select>
+      <div id="locSelectFull" class="loc-select-full" aria-hidden="true"></div>
       <button class="btn btn-primary" type="button" id="btnFlyPavlov">К Дому Павлова</button>
       <button class="btn" type="button" id="btnOverview">Весь город</button>
       <button class="btn mobile-only" type="button" id="btnToggleSidebar" aria-expanded="false" aria-controls="sidebarLeft">Слои и легенда</button>
@@ -531,7 +551,7 @@
       <label class="sr-only" for="coordInput">Координаты: широта, долгота</label>
       <input type="text" id="coordInput" inputmode="decimal" autocomplete="off" aria-describedby="coordHelp" placeholder="48.716086, 44.531389" style="width:155px;">
       <button class="btn" type="button" id="btnGoCoord">Перейти</button>
-      <span id="coordHelp" class="sr-only">Введите две координаты: широту от −90 до 90 и долготу от −180 до 180.</span>
+      <span id="coordHelp" class="coord-feedback" role="status" aria-live="polite">Введите две координаты: широту от −90 до 90 и долготу от −180 до 180.</span>
     </div>
   </div>
 
@@ -591,10 +611,10 @@
         <label><input type="checkbox" id="chkVector1942" checked><span>Тёмная карта города (по стилю SVG)</span></label>
         <div class="layer-desc">
           <span class="badge badge-vec">Векторный слой</span><br>
-          Сетка улиц по координатной геометрии: центр Волгограда восстановлен после войны по довоенной планировке,
-          поэтому сетка совпадает с планировкой Сталинграда 1942 г. (3 100+ линий). Русло Волги — по реальной
-          береговой линии. Исторические названия улиц показаны там, где переименование документировано.
-          Линия фронта на 19.11.1942 — схематичная.
+          Сетка улиц — современная (по данным OpenStreetMap), приведена для ориентирования: центр Волгограда
+          восстановлен после войны по довоенной планировке, поэтому в центре сетка близка к планировке
+          Сталинграда 1942 г. (3 100+ линий). Русло Волги — по реальной береговой линии. Исторические
+          названия улиц показаны там, где переименование документировано. Линия фронта на 19.11.1942 — схематичная.
         </div>
       </div>
       <div class="layer-option">
@@ -700,6 +720,7 @@
       <p><strong>Исторические аэроснимки 1942–1943 годов:</strong> <a href="https://volmap.ru/stalingrad43-map" target="_blank" rel="noopener noreferrer">volmap.ru</a>.</p>
       <p><strong>Библиотека интерактивной карты:</strong> <a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>.</p>
       <p>Источники отдельных исторических фотографий указаны в карточках объектов.</p>
+      <p><strong>Историческая сверка:</strong> названия улиц 1942 г. — <a href="https://www.volgadmin.ru/content/files/3444077191-Streets.csv" target="_blank" rel="noopener noreferrer">официальный реестр улиц Волгограда</a> и статья <a href="https://vestnik.kosgos.ru/attachments/article/1091/Antonenko-NS-Ilyin-DYu-vestnik-ksu-2023-3-ru.pdf" target="_blank" rel="noopener noreferrer">И. А. Антоненко, Д. Ю. Ильина (2023)</a>; части и даты боёв — <a href="https://www.polkrf.ru/articles/etih-dnej-ne-smolknet-slava-hroniki-vojny/k-80-letiyu-stalingradskoj-bitvy-srazhenie-za-elevator" target="_blank" rel="noopener noreferrer">Полк.рф (бой за элеватор)</a> и <a href="https://ru.wikipedia.org/wiki/%D0%AD%D0%BB%D0%B5%D0%B2%D0%B0%D1%82%D0%BE%D1%80_(%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4)" target="_blank" rel="noopener noreferrer">Википедия</a>; современный адрес мельницы — <a href="https://2gis.ru/volgograd/geo/4644972770893601" target="_blank" rel="noopener noreferrer">2ГИС</a>; архитекторы Дома грузчиков — <a href="https://voopiik34.ru/object/dom-gruzchikov-zhiloj-dom-restoran-gruziya-upravlenie-rechnogo-porta-g-volgograd-voroshilovskij-rajon-ul-raboche-krestyanskaya-22/" target="_blank" rel="noopener noreferrer">ВООПИиК</a> и <a href="https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%BC_%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%B2_(%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4)" target="_blank" rel="noopener noreferrer">Википедия</a> (обе версии приведены в карточке). Линия фронта — схематичная трасса, см. подсказку на самой линии.</p>
     </div>
   </div>
 
@@ -842,7 +863,11 @@ L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo
 // Современные объекты вынесены из исторической панели: шторка/прозрачность не должны их обрезать.
 const objectsPane = map.createPane('objectsPane');
 objectsPane.style.zIndex = 625;
-const objectsRenderer = L.canvas({ pane: 'objectsPane', padding: 0.5 });
+// Явный SVG-рендерер для маркеров зданий: клики по карте перехватывают только
+// сами кружки маркеров (pointer-events: none на корне SVG), а не весь экран —
+// canvas-оверлеи в верхней панели перехватывали события нижних слоёв (BUG-001).
+// У карты включён preferCanvas, поэтому рендерер задаём явно.
+const objectsMarkerRenderer = L.svg({ pane: 'objectsPane' });
 // Подписи уменьшаются при приближении, чтобы не перекрывать карту на телефонах.
 function updateMapLabelScale() {
   const zoom = map.getZoom();
@@ -980,13 +1005,17 @@ CITY_DATA.islands.forEach(pts => {
   }).addTo(stalingrad1942VectorGroup);
 });
 
-// Исторические названия улиц (1942 г.)
+// Исторические названия улиц (1942 г.). Сверено с официальным реестром улиц
+// Волгограда (volgadmin.ru) и статьёй Н. С. Антоненко, Д. Ю. Ильина (2023):
+// улица 13-й Гвардейской Дивизии — бывшая Солнечная (переименована в 1947 г.),
+// ул. Маршала Чуйкова — бывшая Краснопитерская (переименована в 1983 г.),
+// ул. Наумова — бывшая Тамбовская, центр. часть пр. Ленина — бывшая Октябрьская.
 const OLD_NAMES = {
-  'проспект Ленина': 'Солнечная',
+  'проспект Ленина': 'Октябрьская (центр. часть)',
   'Советская улица': 'Пензенская',
-  'улица Маршала Чуйкова': 'Киевская',
-  'улица 13-й Гвардейской Дивизии': 'Тамбовская',
-  'улица Наумова': 'Курская',
+  'улица Маршала Чуйкова': 'Краснопитерская',
+  'улица 13-й Гвардейской Дивизии': 'Солнечная',
+  'улица Наумова': 'Тамбовская',
   'улица Милиционера Буханцева': 'Вокзальная',
 };
 
@@ -1124,18 +1153,21 @@ LANDMARKS.forEach(m => {
       labelPts[name] = { len, pos: mid };
     }
   });
+  // «проспект Ленина» — длинная магистраль; название 1942 г. документировано
+  // для центральной части (Октябрьская), поэтому подпись ставим туда,
+  // а не на самый длинный северный отрезок.
+  if (labelPts['проспект Ленина']) labelPts['проспект Ленина'].pos = [48.71257, 44.52611];
   Object.keys(labelPts).forEach(name => {
     if (seen[name] < 1) return;
     const old = OLD_NAMES[name];
     const disp = old ? old : name.replace('улица ', '').replace(' улица', '');
     L.marker(labelPts[name].pos, {
       pane: 'st1942Pane',
-      icon: L.divIcon({ className: '', html: `<span class="vec-label-sm" style="color:#8b95a8;">${disp}</span>`, iconSize: null })
+      icon: L.divIcon({ className: '', html: `<span class="vec-label-sm" style="color:#a9b5c9;">${disp}</span>`, iconSize: null })
     }).bindTooltip(name + (old ? `<br><span class="old-name">в 1942 г.: ${old}</span>` : ''), { className: 'leaflet-tooltip-vec' })
       .addTo(vecLabelsGroup);
   });
 })();
-
 // ============ Квартал пл. 9-го Января (детально) ============
 const quarterGroup = L.layerGroup();
 L.polygon([
@@ -1219,25 +1251,25 @@ const OBJECTS = {
   zabolotny: {
     pos: [48.715470, 44.530860], status: 'lost', color: '#dc2626',
     title: 'Дом Заболотного (Дом Совконтроля)',
-    sub: 'Сталинград, ул. Пензенская, 63 / Советская, 37',
+    sub: 'Сталинград, ул. Пензенская / Волгоград, Советская, 37',
     statusTxt: 'утрачен — не восстанавливался',
     rows: [
       ['Адрес в 1942 г.', 'г. Сталинград, пл. 9-го Января (Дом Совконтроля)'],
       ['Оборона', 'взвод л-та Н. Е. Заболотного, сентябрь — ноябрь 1942 г.']
     ],
     desc: 'Соседний 4-этажный дом западнее Дома Павлова. Оборонялся взводом Н. Е. Заболотного. Сильно разрушен в ходе боёв и после войны не восстанавливался — на его месте сейчас сквер у Дома Павлова.',
-    photos: ['aerial_annot', 'photos/zabolotny_ruins.jpg']
+    photos: ['aerial_annot']
   },
   mill: {
     pos: [48.715220, 44.533070], status: 'ruin', color: '#d97706',
     title: 'Госмельница № 4 (мельница Гергардта)',
-    sub: 'Волгоград, ул. Маршала Чуйкова, 55',
+    sub: 'Волгоград, ул. Маршала Чуйкова, 47а',
     statusTxt: 'сохранены руины',
     rows: [
-      ['Адрес в 1942 г.', 'г. Сталинград, ул. Пензенская, 67 (паровая мельница Гергардта, 1899 г.)'],
+      ['Адрес в 1942 г.', 'г. Сталинград, ул. Пензенская (паровая мельница Гергардта, 1899 г.)'],
       ['Оборона', 'сентябрь — ноябрь 1942 г., опорный пункт и КП батальона 42-го гв. сп']
     ],
-    photos: ['aerial_circles', 'photos/mill_modern.jpg'],
+    photos: ['aerial_circles'],
     desc: 'Пятиэтажное здание паровой мельницы — ключевой узел Пензенского опорного пункта. После битвы законсервировано как памятник: руины без реставрации сохранены до настоящего времени рядом с музеем-панорамой «Сталинградская битва».'
   },
   gruzchikov: {
@@ -1246,12 +1278,12 @@ const OBJECTS = {
     sub: 'Волгоград, Ворошиловский р-н, ул. Рабоче-Крестьянская, 22 / Огарёва, 10–12',
     statusTxt: 'сохранился, восстановлен к 1947 г.',
     rows: [
-      ['Постройка', '1936 г., арх. А. Коваленко и А. Иванов (поздний конструктивизм)'],
+      ['Постройка', 'середина 1930-х гг., поздний конструктивизм; архитекторы в источниках расходятся: ВООПИиК — Коваленко и Иванов, Википедия — Коваленко и Летюшов (1935–1937 гг.)'],
       ['Адрес', 'угол ул. Рабоче-Крестьянской и Огарёва — дом работников речного порта'],
-      ['Судьба', 'уцелел в битве, восстановлен по довоенному проекту (арх. А. И. Куреной, 1947 г.)']
+      ['Судьба', 'уцелел в битве, восстановлен по довоенному облику: ВООПИиК — арх. А. И. Куренной, 1947 г.; Википедия — арх. А. В. Куровской, 1945–1947 гг.']
     ],
     desc: 'Один из «домов специалистов» довоенного Сталинграда: на первом этаже — ресторан «Грузия», магазины. Редкий пример здания, пережившего битву в боевых кварталах южной части города. Ныне — бизнес-пространство.',
-    photos: ['photos/gruzchikov_modern.jpg']
+    photos: []
   },
   kommunal: {
     pos: [48.693680, 44.495080], status: 'kept', color: '#16a34a',
@@ -1264,7 +1296,7 @@ const OBJECTS = {
       ['Подтверждено', 'дом построен до войны и уцелел в битве: по аэрофотосъёмке марта 1943 г. сохранились крыши; известен снимок советских автоматчиков с ППШ на крыше (конец января 1943 г., после освобождения района)']
     ],
     desc: 'Здание, которое преподаватель предложила добавить в атлас как «дом напротив дома грузчика». Сохранность дома подтверждена аэрофотосъёмкой 1943 г.; участие здания в боях сентября 1942 г. как опорного пункта в открытых источниках прямо не описано и требует проверки в архивах — в карточке приведены только подтверждённые сведения.',
-    photos: ['photos/kommunal_modern.jpg'],
+    photos: [],
   },
   ogareva5: {
     pos: [48.693430, 44.495330], status: 'kept', color: '#16a34a',
@@ -1273,7 +1305,7 @@ const OBJECTS = {
     statusTxt: 'уцелел',
     rows: [['Постройка', 'конец XIX — начало XX в. (дореволюционный Царицын)']],
     desc: 'Сохранившийся царицынский особняк в Ворошиловском районе. По кадрам аэрофотосъёмки марта 1943 г. дом пострадал незначительно — уцелели даже крыши.',
-    photos: ['photos/ogareva5_modern.jpg'],
+    photos: [],
   },
   elevator: {
     pos: [48.681075, 44.489200], status: 'kept', color: '#16a34a',
@@ -1281,10 +1313,10 @@ const OBJECTS = {
     sub: 'Волгоград, Ворошиловский р-н',
     statusTxt: 'сохранился, восстановлен',
     rows: [
-      ['Бои', '16–21 сентября 1942 г. (моряки-североморцы, 35-я гв. сд, 10-я сд НКВД, 92-я сбр)']
+      ['Бои', '16–22 сентября 1942 г. — 35-я гв. сд, 92-я сбр, 10-я отдельная стрелковая бригада; 10-я дивизия НКВД в те же дни вела бои у вокзала']
     ],
-    desc: 'Самое высокое довоенное здание города. Пять дней его штурмовали части 4-го танкового корпуса вермахта; к полуночи 21 сентября 1942 г. элеватор был занят противником. Восстановлен после войны.',
-    photos: ['photos/elevator_1943.jpg'],
+    desc: 'Самое высокое довоенное здание города. Штурмовали части 24-й танковой дивизии 48-го корпуса 4-й танковой армии вермахта; в ночь на 23 сентября 1942 г. защитники оставили здание (по Википедии; Полк.рф описывает ночной прорыв после обстрела 21 сентября, точную дату не называя). Восстановлен после войны.',
+    photos: [],
   },
   vokzal: {
     pos: [48.710000, 44.514000], status: 'rebuilt', color: '#16a34a',
@@ -1293,7 +1325,7 @@ const OBJECTS = {
     statusTxt: 'разрушен, восстановлен',
     rows: [['Бои', 'сентябрь 1942 г. — вокзал 13 раз переходил из рук в руки']],
     desc: 'Вокзал и привокзальная площадь — одна из самых горячих точек центральной части города. Разрушен в ходе боёв, восстановлен после войны.',
-    photos: ['photos/vokzal_1943.jpg', 'photos/vokzal_modern.jpg'],
+    photos: [],
   },
   universmag: {
     pos: [48.708597, 44.516501], status: 'kept', color: '#16a34a',
@@ -1302,7 +1334,7 @@ const OBJECTS = {
     statusTxt: 'сохранился',
     rows: [['Событие', '31 января 1943 г. — в подвале универмага взят в плен фельдмаршал Ф. Паулюс']],
     desc: 'Довоенное здание универмага на площади Павших Борцов. 31 января 1943 г. в его подвале сдался в плен командующий 6-й армией Ф. Паулюс.',
-    photos: ['photos/universmag_1943.jpg'],
+    photos: [],
   }
 };
 
@@ -1311,7 +1343,7 @@ stalingrad1942VectorGroup.addTo(map);
 frontLineGroup.addTo(map);
 Object.entries(OBJECTS).forEach(([key, o]) => {
   const m = L.circleMarker(o.pos, {
-    pane: 'objectsPane', renderer: objectsRenderer,
+    pane: 'objectsPane', renderer: objectsMarkerRenderer,
     radius: 7, color: '#ffffff', weight: 2, fillColor: o.color, fillOpacity: 1
   }).addTo(objectsGroup);
   m.bindTooltip(`<strong>${o.title}</strong><br>${o.statusTxt}`, { direction: 'top' });
@@ -1341,35 +1373,25 @@ function showObjectCard(key) {
       scheme_pavlov: '<strong>Схема обороны участка «Дом Павлова»</strong><br>Копия схемы сержанта Я. Ф. Павлова (13-я гв. сд): огневые точки, минные поля, ходы сообщения и контрудар 25.11.1942.',
       aerial_annot: '<strong>Аэроснимок 1943 г. с разметкой</strong><br>Дом Заболотного и Дом Павлова (стрелки).',
       aerial_circles: '<strong>Аэроснимок квартала</strong><br>1–2 — дома Павлова и Заболотного, 3 — мельница.',
-      'photos/zabolotny_ruins.jpg': '<strong>Руины Дома Заболотного после боёв</strong><br>Единственный дом квартала, где сохранились стены до третьего этажа. Источник: russian7.ru (<a href="https://russian7.ru/post/dom-zabolotnogo-chto-stalo-s-blizneco/" target="_blank" rel="noopener noreferrer">статья</a>).',
-      'photos/mill_modern.jpg': '<strong>Мельница Гергардта сегодня</strong><br>Руины законсервированы без реставрации — памятник Битвы на Нижнем Волге. Фото: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:May2015_Volgograd_img14_Gergardt_Mill.jpg" target="_blank" rel="noopener noreferrer">карточка файла</a>).',
-      'photos/gruzchikov_modern.jpg': '<strong>Дом грузчиков в наши дни</strong><br>Уцелел в битве и восстановлен по довоенному проекту. Фото: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:Gruzchikov_house_in_Volgograd_2022_1.jpg" target="_blank" rel="noopener noreferrer">карточка файла</a>).',
-      'photos/kommunal_modern.jpg': '<strong>Дом коммунальщиков (Огарёва, 7) сегодня</strong><br>Построен по системе «дома-коммуны». Фото: ВООПИиК (<a href="https://voopiik34.ru/object/dom-kommunalshhikov-zhiloj-dom-g-volgograd-voroshilovskij-rajon-ul-ogareva-7/" target="_blank" rel="noopener noreferrer">карточка объекта</a>).',
-      'photos/ogareva5_modern.jpg': '<strong>Особняк на ул. Огарёва, 5</strong><br>Царицынская доходная застройка (1900-е). Фото: ВООПИиК (<a href="https://voopiik34.ru/object/dom-zhiloj-voroshilovskoe-otdelenie-municzipalnoj-miliczii-g-volgograd-voroshilovskij-rajon-ul-ogareva-5-krasnoslobodskaya-4/" target="_blank" rel="noopener noreferrer">карточка объекта</a>).',
-      'photos/elevator_1943.jpg': '<strong>Сталинградский элеватор после боёв, 1943 г.</strong><br>Здание превратилось в «лунный пейзаж» (гвардии полковник). Источник: waralbum.ru (<a href="https://waralbum.ru/313809/" target="_blank" rel="noopener noreferrer">страница фото</a>).',
-      'photos/vokzal_1943.jpg': '<strong>Привокзальная площадь, 1943–1944 гг.</strong><br>Ж/д узел и территория вокзала после боёв. Источник: waralbum.ru (<a href="https://waralbum.ru/43438/" target="_blank" rel="noopener noreferrer">страница фото</a>).',
-      'photos/vokzal_modern.jpg': '<strong>Современный вокзал Волгоград-1</strong><br>Здание 1954 г. (арх. А. Волошинов и др.). Фото: Wikimedia Commons (<a href="https://commons.wikimedia.org/wiki/File:Volgograd_Station_1.jpg" target="_blank" rel="noopener noreferrer">карточка файла</a>).',
-      'photos/universmag_1943.jpg': '<strong>Центральный универмаг после боёв, 1943 г.</strong><br>В подвале 31 января 1943 г. капитулировал фельдмаршал Паулюс. Источник: waralbum.ru (<a href="https://waralbum.ru/43431/" target="_blank" rel="noopener noreferrer">страница фото</a>).'
-    };
-    if (ph.startsWith('photos/')) {
-      html += `<div class="photo-card caption-only"><div class="photo-caption">${caps[ph] || '<strong>Файл фотографии не включён в публикацию.</strong>'}</div></div>`;
-      return;
-    }
+                                                          };
+    // Фото карточек — только встроенные (data-URI) изображения CITY_DATA.photos;
+    // ссылки на отсутствующие файлы photos/*.jpg удалены (BUG-003 аудита).
     const img = CITY_DATA.photos[ph];
     if (!img) return;
     html += `<div class="photo-card"><img src="${img}" alt="Иллюстрация: ${o.title}" loading="lazy" onerror="this.closest('.photo-card').style.display='none'"><div class="photo-caption">${caps[ph] || ''}</div></div>`;
   });
-  html += `<div style="font-size:11px;color:var(--text-muted);">Источники: <a href="https://volmap.ru/stalingrad43-map" target="_blank" rel="noopener noreferrer">volmap.ru</a>, <a href="https://voopiik34.ru/object/dom-gruzchikov-zhiloj-dom-restoran-gruziya-upravlenie-rechnogo-porta-g-volgograd-voroshilovskij-rajon-ul-raboche-krestyanskaya-22/" target="_blank" rel="noopener noreferrer">ВООПИиК (Дом грузчиков)</a>, <a href="http://stalingrad1942-1943.ru/taxonomy/term/2988" target="_blank" rel="noopener noreferrer">stalingrad1942-1943.ru</a>, <a href="https://bloknot-volgograd.ru/news/togda-i-seychas-zhiloy-dom-v-volgograde-perezhivsh-1369356" target="_blank" rel="noopener noreferrer">bloknot-volgograd.ru</a></div>`;
+  html += `<div style="font-size:11px;color:var(--text-muted);">Источники: <a href="https://volmap.ru/stalingrad43-map" target="_blank" rel="noopener noreferrer">volmap.ru</a>, <a href="https://voopiik34.ru/object/dom-gruzchikov-zhiloj-dom-restoran-gruziya-upravlenie-rechnogo-porta-g-volgograd-voroshilovskij-rajon-ul-raboche-krestyanskaya-22/" target="_blank" rel="noopener noreferrer">ВООПИиК (Дом грузчиков)</a>, <a href="http://stalingrad1942-1943.ru/taxonomy/term/2988" target="_blank" rel="noopener noreferrer">stalingrad1942-1943.ru</a>, <a href="https://bloknot-volgograd.ru/news/togda-i-seychas-zhiloy-dom-v-volgograde-perezhivsh-1369356" target="_blank" rel="noopener noreferrer">bloknot-volgograd.ru</a>, <a href="https://www.volgadmin.ru/content/files/3444077191-Streets.csv" target="_blank" rel="noopener noreferrer">реестр улиц Волгограда</a>, <a href="https://www.polkrf.ru/" target="_blank" rel="noopener noreferrer">Полк.рф</a></div>`;
   document.getElementById('cardBody').innerHTML = html;
   document.getElementById('objectCard').classList.remove('hidden');
 }
 // Карточка объекта открывается по клику на маркер или кнопке навигации.
 
-// Маркер Дома Павлова (поверх всего)
-const topMarksPane = map.createPane('topMarksPane');
-topMarksPane.style.zIndex = 640; // современный маркер не должен попадать под историческую шторку
+// Маркер Дома Павлова. Раньше он жил в отдельной панели topMarksPane — canvas на весь
+// экран (z=640), который перехватывал все клики по маркерам зданий (BUG-001 аудита).
+// Теперь маркер рендерится в SVG в objectsPane (z=625, выше исторических слоёв и
+// шторки): события получает только сам кружок, а не вся область карты.
 const pavlovMarker = L.circleMarker([48.716086, 44.531389], {
-  pane: 'topMarksPane',
+  pane: 'objectsPane', renderer: objectsMarkerRenderer,
   radius: 9, color: '#ffffff', weight: 2.5, fillColor: '#991b1b', fillOpacity: 1
 }).addTo(map);
 pavlovMarker.bindTooltip('Дом Павлова — нажмите для открытия карточки', { direction: 'top' });
@@ -1416,27 +1438,72 @@ function parseCoordinateInput(value) {
 }
 
 const coordInput = document.getElementById('coordInput');
-coordInput.addEventListener('input', () => coordInput.removeAttribute('aria-invalid'));
+const coordHelpEl = document.getElementById('coordHelp');
+const COORD_HINT = 'Введите две координаты: широту от −90 до 90 и долготу от −180 до 180.';
+coordInput.addEventListener('input', () => {
+  coordInput.removeAttribute('aria-invalid');
+  if (coordHelpEl.classList.contains('error')) {
+    coordHelpEl.textContent = COORD_HINT;
+    coordHelpEl.className = 'coord-feedback';
+  }
+});
 coordInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('btnGoCoord').click();
 });
+// BUG-004: текстовый отклик вместо alert — и на успех, и на ошибку ввода координат.
 document.getElementById('btnGoCoord').addEventListener('click', () => {
   const parts = parseCoordinateInput(coordInput.value);
   if (!parts) {
     coordInput.setAttribute('aria-invalid', 'true');
     coordInput.focus();
-    alert('Введите две корректные координаты: широта от −90 до 90, долгота от −180 до 180. Например: 48.716086, 44.531389');
+    coordHelpEl.textContent = 'Ошибка: нужны широта от −90 до 90 и долгота от −180 до 180. Пример: 48.716086, 44.531389';
+    coordHelpEl.className = 'coord-feedback error';
     return;
   }
   coordInput.removeAttribute('aria-invalid');
+  coordHelpEl.textContent = 'Перехожу к точке ' + parts[0].toFixed(6) + ', ' + parts[1].toFixed(6) + '…';
+  coordHelpEl.className = 'coord-feedback ok';
   map.flyTo([parts[0], parts[1]], 18);
 });
+
+// Полное название выбранного места: на мобильных выпадающий список обрезает текст (BUG-006).
+(function initLocSelectFull() {
+  const sel = document.getElementById('locSelect');
+  const full = document.getElementById('locSelectFull');
+  if (!sel || !full) return;
+  function upd() {
+    const opt = sel.options[sel.selectedIndex];
+    full.textContent = opt ? opt.textContent : '';
+  }
+  sel.addEventListener('change', upd);
+  upd();
+})();
 
 // Адаптивные панели: на небольшом экране слои и координаты открываются по запросу.
 const sidebarLeft = document.getElementById('sidebarLeft');
 const btnToggleSidebar = document.getElementById('btnToggleSidebar');
 const btnToggleCoords = document.getElementById('btnToggleCoords');
 const coordControls = document.getElementById('coordControls');
+
+// BUG-002: панель слоёв не должна уходить под верхнюю панель на узких окнах —
+// верхняя панель многострочная, синхронизируем отступ сайдбара с её фактической высотой.
+(function syncSidebarWithTopBar() {
+  const sb = document.getElementById('sidebarLeft');
+  const tb = document.querySelector('.top-bar');
+  if (!sb || !tb) return;
+  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+  function apply() {
+    if (isMobile()) { sb.style.top = ''; sb.style.maxHeight = ''; return; }
+    const barBottom = Math.ceil(tb.getBoundingClientRect().bottom);
+    const top = Math.max(128, barBottom + 10);
+    sb.style.top = top + 'px';
+    sb.style.maxHeight = 'calc(100vh - ' + (top + 44) + 'px)';
+  }
+  if (window.ResizeObserver) new ResizeObserver(apply).observe(tb);
+  window.addEventListener('resize', apply);
+  window.addEventListener('load', apply);
+  apply();
+})();
 btnToggleSidebar.addEventListener('click', () => {
   const isOpen = sidebarLeft.classList.toggle('mobile-open');
   btnToggleSidebar.setAttribute('aria-expanded', String(isOpen));
@@ -1604,6 +1671,59 @@ function scheduleSwipeClip() {
   });
 }
 
+// BUG-005: разделитель шторки можно перетаскивать мышью и пальцем.
+swipeDivider.addEventListener('pointerdown', function (e) {
+  if (!chkSwipe.checked) return;
+  e.preventDefault();
+  try { swipeDivider.setPointerCapture(e.pointerId); } catch (err) {}
+  function onMove(ev) {
+    const rect = document.getElementById('map').getBoundingClientRect();
+    const min = Number(rngSwipe.min), max = Number(rngSwipe.max);
+    let pct = ((ev.clientX - rect.left) / rect.width) * 100;
+    pct = Math.min(max, Math.max(min, pct));
+    rngSwipe.value = String(Math.round(pct));
+    scheduleSwipeClip();
+  }
+  function onUp() {
+    swipeDivider.removeEventListener('pointermove', onMove);
+    swipeDivider.removeEventListener('pointerup', onUp);
+    swipeDivider.removeEventListener('pointercancel', onUp);
+  }
+  swipeDivider.addEventListener('pointermove', onMove);
+  swipeDivider.addEventListener('pointerup', onUp);
+  swipeDivider.addEventListener('pointercancel', onUp);
+});
+
+// BUG-006: подписи карты не должны прятаться под панелью слоёв и карточкой объекта — скрываем пересекающиеся.
+// Проверка отложена до следующего кадра: Leaflet передвигает подписи после событий карты.
+function hideVecLabelsUnderPanels() {
+  const panels = [document.getElementById('sidebarLeft'), document.getElementById('objectCard')].filter(function (p) {
+    if (!p) return false;
+    const st = getComputedStyle(p);
+    return st.display !== 'none' && !p.classList.contains('hidden');
+  });
+  document.querySelectorAll('.leaflet-marker-pane .vec-label, .leaflet-marker-pane .vec-label-sm, .leaflet-st1942-pane .vec-label, .leaflet-st1942-pane .vec-label-sm').forEach(function (el) {
+    if (!panels.length) { el.style.visibility = ''; return; }
+    const r = el.getBoundingClientRect();
+    const overlap = panels.some(function (sb) {
+      const s = sb.getBoundingClientRect();
+      return r.left < s.right + 6 && r.right > s.left - 6 &&
+             r.top < s.bottom + 6 && r.bottom > s.top - 6;
+    });
+    el.style.visibility = overlap ? 'hidden' : '';
+  });
+}
+function scheduleHideVecLabels() {
+  requestAnimationFrame(hideVecLabelsUnderPanels);
+}
+map.on('move zoom resize moveend zoomend', scheduleHideVecLabels);
+window.addEventListener('resize', scheduleHideVecLabels);
+btnToggleSidebar.addEventListener('click', () => setTimeout(scheduleHideVecLabels, 60));
+// карточка объекта открывается/закрывается без событий карты — следим за ней напрямую
+if (window.MutationObserver) {
+  new MutationObserver(scheduleHideVecLabels).observe(document.getElementById('objectCard'), { attributes: true, attributeFilter: ['class'] });
+}
+
 chkSwipe.addEventListener('change', () => {
   swipeRow.style.display = chkSwipe.checked ? 'flex' : 'none';
   if (chkSwipe.checked) {
@@ -1652,5 +1772,445 @@ document.getElementById('btnCloseCard').addEventListener('click', () => {
 });
 </script>
 
-</body>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://perplexity.localhost","http://localhost:1420","http://127.0.0.1:1420","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  const DEFAULT_LINE_HEIGHT = 16;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  const PICK_CAPABILITIES = ["pick"];
+  const PICK_CHAIN_LENGTH = 4;
+  const PICK_MAX_TEXT_CHARS = 120;
+  const PICK_MAX_HTML_CHARS = 300;
+
+  function truncate(value, maxChars) {
+    return value.length > maxChars ? value.slice(0, maxChars - 1) + "…" : value;
+  }
+
+  function isPickableElement(element) {
+    return (
+      element instanceof Element &&
+      element !== document.documentElement &&
+      element !== document.body
+    );
+  }
+
+  function resolvePickTarget(x, y) {
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+    const element = document.elementFromPoint(x, y);
+    return isPickableElement(element) ? element.closest("svg") || element : null;
+  }
+
+  function pickLabel(element) {
+    if (element.id) return element.localName + "#" + element.id;
+    return [element.localName].concat(Array.from(element.classList).slice(0, 2)).join(".");
+  }
+
+  // Only attributes that help find the element in source. data-* values and URL
+  // query strings or fragments can carry tokens.
+  const PICK_ATTRIBUTES = new Set([
+    "id",
+    "class",
+    "name",
+    "type",
+    "role",
+    "alt",
+    "aria-label",
+    "href",
+    "src",
+  ]);
+
+  function pickAttributeValue(attribute) {
+    return attribute.name === "href" || attribute.name === "src"
+      ? attribute.value.split(/[?#]/)[0]
+      : attribute.value;
+  }
+
+  function describePickElement(element) {
+    const chain = [];
+    for (
+      let current = element;
+      isPickableElement(current) && chain.length < PICK_CHAIN_LENGTH;
+      current = current.parentElement
+    ) {
+      chain.unshift(current);
+    }
+    const attributes = Array.from(element.attributes)
+      .filter((attribute) => PICK_ATTRIBUTES.has(attribute.name))
+      .map((attribute) => ` ${attribute.name}="${pickAttributeValue(attribute).replace(/"/g, "&quot;")}"`)
+      .join("");
+    const text = (element.innerText || element.textContent || "").replace(/\s+/g, " ").trim();
+    return {
+      chain: chain.map(pickLabel),
+      html: truncate(`<${element.localName}${attributes}>`, PICK_MAX_HTML_CHARS),
+      text: text ? truncate(text, PICK_MAX_TEXT_CHARS) : undefined,
+    };
+  }
+
+  // Hover asks once per frame, and innerText on a large section forces layout,
+  // so only the rect is re-read while the pointer stays on the same element.
+  // Clicks ask for fresh details since the page may have changed the element.
+  let lastPick = null;
+
+  function describePickTarget(element, fresh) {
+    if (fresh || lastPick?.element !== element) {
+      lastPick = { element, details: describePickElement(element) };
+    }
+    const rect = element.getBoundingClientRect();
+    return {
+      rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
+      ...lastPick.details,
+    };
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+      capabilities: PICK_CAPABILITIES,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_PICK") {
+      const element = resolvePickTarget(event.data.x, event.data.y);
+      postToTrustedTop({
+        type: "INLINE_EDIT_PICK_RESULT",
+        seq: event.data.seq,
+        target: element ? describePickTarget(element, event.data.fresh === true) : null,
+      });
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_BY") {
+      const { deltaX, deltaY, deltaMode } = event.data;
+      if (!scrollForwarding || !Number.isFinite(deltaX) || !Number.isFinite(deltaY)) return;
+      if (deltaMode !== 0 && deltaMode !== 1 && deltaMode !== 2) return;
+      const lineHeight =
+        parseFloat(getComputedStyle(document.documentElement).lineHeight) || DEFAULT_LINE_HEIGHT;
+      const scaleX = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerWidth : 1;
+      const scaleY = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerHeight : 1;
+      // The selection overlay receives the wheel event instead of this iframe.
+      // Instant scrolling preserves trackpad deltas even on smooth-scroll sites.
+      window.scrollBy({ left: deltaX * scaleX, top: deltaY * scaleY, behavior: "instant" });
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
 </html>
