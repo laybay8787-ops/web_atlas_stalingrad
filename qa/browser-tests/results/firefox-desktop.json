@@ -1,0 +1,783 @@
+{
+  "name": "firefox-desktop",
+  "checks": [
+    {
+      "ok": true,
+      "message": "Карта видима"
+    },
+    {
+      "ok": true,
+      "message": "Leaflet загружен"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1942 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1942 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1943 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1943 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха modern активна"
+    },
+    {
+      "ok": true,
+      "message": "Подложка carto выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка sat выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка detailed выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Навигация pavlov: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация zabolotny: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mill: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация square: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация ogareva: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация kommunal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация elevator: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация vokzal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mamayev: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация stz: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Некорректные координаты отклонены"
+    },
+    {
+      "ok": true,
+      "message": "Корректные координаты приняты"
+    },
+    {
+      "ok": true,
+      "message": "Показаны 9 объектов"
+    },
+    {
+      "ok": true,
+      "message": "Основной маркер восстановлен"
+    },
+    {
+      "ok": true,
+      "message": "Шторка перемещается"
+    },
+    {
+      "ok": true,
+      "message": "Стороны шторки меняются"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников открывается"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников закрывается по Escape"
+    },
+    {
+      "ok": true,
+      "message": "Нет горизонтального переполнения документа"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных ошибок JavaScript"
+    }
+  ],
+  "pageErrors": [],
+  "requestFailures": [
+    {
+      "url": "https://volmap.ru/files/st42/17/45171/81749.jpg",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81747/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81747/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81747/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81747/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81746/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81751/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81746/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81751/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81746/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81751/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81746/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81751/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81748",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81749",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81748",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81749",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81748",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81749",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81747",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81750",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81747",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81750",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81748",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81749",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81747",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81750",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81747",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81750",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81746",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81751",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81746",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81751",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81746",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81751",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81746",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81751",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/17/81752/45169.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/17/81752/45170.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/17/81752/45168.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/17/81752/45171.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40874/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40875/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40874/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40875/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40873/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40876/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40873/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40876/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40873/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40876/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40873/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40876/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40872/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40877/22584.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40872/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40877/22585.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40872/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40877/22583.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40872/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40877/22586.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20437/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20437/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20436/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20438/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20437/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20436/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20438/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20436/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20438/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20435/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20439/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20435/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20439/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20435/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20439/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10218/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10219/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10218/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10219/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10218/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10219/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10217/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10220/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10217/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10220/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10217/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10220/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10216/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10221/5645.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/14/10216/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10221/5644.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/14/10216/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/14/10221/5646.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20437/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20438/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20437/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20438/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20437/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20438/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20436/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20439/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20436/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20439/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20436/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20439/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20437/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20438/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20437/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20438/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20436/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20439/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20435/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20440/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20436/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20439/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20435/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20440/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20435/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20440/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20435/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20440/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20435/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20440/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20434/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20441/11291.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20434/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20441/11290.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20434/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20441/11292.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20434/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20441/11289.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20434/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20441/11293.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/13/5108/2823.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5109/2824.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5108/2822.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/13/5109/2822.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5107/2823.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5110/2823.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5108/2825.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/13/5107/2825.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/13/5110/2825.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5106/2824.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/13/5111/2824.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5111/2822.png",
+      "error": "NS_BINDING_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/13/5111/2825.png",
+      "error": "NS_BINDING_ABORTED"
+    }
+  ],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+  "horizontalOverflow": false,
+  "ok": true
+}

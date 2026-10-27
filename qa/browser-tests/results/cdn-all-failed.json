@@ -1,0 +1,44 @@
+{
+  "name": "cdn-all-failed",
+  "blockedHosts": [
+    "cdn.jsdelivr.net",
+    "cdnjs.cloudflare.com",
+    "unpkg.com"
+  ],
+  "requestedCdn": [
+    "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css",
+    "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js",
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ],
+  "checks": [
+    {
+      "ok": true,
+      "message": "Показано аварийное сообщение"
+    },
+    {
+      "ok": true,
+      "message": "Leaflet действительно недоступен"
+    },
+    {
+      "ok": true,
+      "message": "Валидация координат работает без Leaflet"
+    },
+    {
+      "ok": true,
+      "message": "Успешная валидация работает без Leaflet"
+    },
+    {
+      "ok": true,
+      "message": "Источники открываются без Leaflet"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных исключений"
+    }
+  ],
+  "pageErrors": [],
+  "ok": true
+}

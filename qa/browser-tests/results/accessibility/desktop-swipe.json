@@ -1,0 +1,332 @@
+{
+  "name": "desktop-swipe",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "aria-valid-attr-value",
+      "impact": "critical",
+      "description": "Ensure all ARIA attributes have valid values",
+      "help": "ARIA attributes must conform to valid values",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/aria-valid-attr-value?application=axeAPI",
+      "nodes": [
+        {
+          "target": [
+            "#btnSources"
+          ],
+          "html": "<button class=\"btn btn-sources\" type=\"button\" id=\"btnSources\" aria-haspopup=\"dialog\" aria-controls=\"sourceDialog\">Источники</button>",
+          "failureSummary": "Fix all of the following:\n  Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"sourceDialog\""
+        }
+      ]
+    },
+    {
+      "id": "bypass",
+      "impact": "serious",
+      "description": "Ensure each page has at least one mechanism for a user to bypass navigation and jump straight to the content",
+      "help": "Page must have means to bypass repeated blocks",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/bypass?application=axeAPI",
+      "nodes": [
+        {
+          "target": [
+            "html"
+          ],
+          "html": "<html lang=\"ru\" style=\"--map-label-scale: 0.80; --map-label-shadow: 3.20px;\">",
+          "failureSummary": "Fix any of the following:\n  No valid skip link found\n  Page does not have a heading\n  Page does not have a landmark region"
+        }
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+      "nodes": [
+        {
+          "target": [
+            ".leaflet-marker-icon.leaflet-interactive.leaflet-zoom-animated:nth-child(3) > .vec-label-gold.vec-label"
+          ],
+          "html": "<span class=\"vec-label vec-label-gold\" style=\"\">ДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "target": [
+            ".leaflet-marker-icon.leaflet-interactive.leaflet-zoom-animated:nth-child(54) > .vec-label-sm"
+          ],
+          "html": "<span class=\"vec-label-sm\" style=\"color:#a9b5c9;\">Пензенская</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "target": [
+            ".leaflet-marker-icon.leaflet-interactive.leaflet-zoom-animated:nth-child(61) > .vec-label-sm"
+          ],
+          "html": "<span class=\"vec-label-sm\" style=\"color:#a9b5c9;\">Коммунистическая</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "target": [
+            ".leaflet-marker-icon.leaflet-interactive.leaflet-zoom-animated:nth-child(75) > .vec-label-sm"
+          ],
+          "html": "<span class=\"vec-label-sm\" style=\"color:#a9b5c9;\">Тамбовская</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+        },
+        {
+          "target": [
+            ".leaflet-control-scale-line"
+          ],
+          "html": "<div class=\"leaflet-control-scale-line\" style=\"width: 64px;\">50 m</div>",
+          "failureSummary": "Fix any of the following:\n  Element's contrast could not be determined because it uses complex text shadows"
+        },
+        {
+          "target": [
+            ".leaflet-control-zoom-out > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">−</span>",
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "target": [
+            ".leaflet-control-attribution"
+          ],
+          "html": "<div class=\"leaflet-control-attribution leaflet-control\">",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "a[href$=\"leafletjs.com\"]"
+          ],
+          "html": "<a href=\"https://leafletjs.com\" title=\"A JavaScript library for interactive maps\">",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".leaflet-control-attribution > a[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(3)"
+          ],
+          "html": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer\">OpenStreetMap</a>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "a[href$=\"hotosm.org/\"]"
+          ],
+          "html": "<a href=\"https://www.hotosm.org/\" target=\"_blank\" rel=\"noopener noreferrer\">HOT</a>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#eraHintTitle"
+          ],
+          "html": "<span id=\"eraHintTitle\">Сталинград, весна 1942 года</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#eraHintSub"
+          ],
+          "html": "<span class=\"sub\" id=\"eraHintSub\">город до разрушения — аэрофотосъёмка volmap.ru</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "target": [
+            ".swipe-tag-left"
+          ],
+          "html": "<div class=\"swipe-tag-left\" style=\"background: rgba(153, 27, 27, 0.9); display: block;\">Сталинград, 1942</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".swipe-handle"
+          ],
+          "html": "<div class=\"swipe-handle\">⇄</div>",
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "target": [
+            ".swipe-tag-right"
+          ],
+          "html": "<div class=\"swipe-tag-right\" style=\"background: rgba(24, 24, 27, 0.85); display: block;\">Современный Волгоград</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".brand-title > span:nth-child(2)"
+          ],
+          "html": "<span>Веб-атлас: Сталинградская битва</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#coordHelp"
+          ],
+          "html": "<span id=\"coordHelp\" class=\"coord-feedback\" role=\"status\" aria-live=\"polite\">Введите две координаты: широту от −90 до 90 и долготу от −180 до 180.</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(1) > .section-hdr"
+          ],
+          "html": "<div class=\"section-hdr\">1. Современная карта (Волгоград)</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(1) > .layer-option:nth-child(2) > label > span"
+          ],
+          "html": "<span>Подробная карта</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(1) > .layer-option:nth-child(3) > label > span"
+          ],
+          "html": "<span>Светлая схема (CartoDB)</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(1) > .layer-option:nth-child(4) > label > span"
+          ],
+          "html": "<span>Спутниковый снимок (Esri)</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(2) > .section-hdr"
+          ],
+          "html": "<div class=\"section-hdr\">2. Цифровой двойник: эпоха города</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#sidebarLeft > div:nth-child(2) > .layer-desc"
+          ],
+          "html": "<div class=\"layer-desc\" style=\"padding-left:0;margin-bottom:8px;\">",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(2) > .layer-option:nth-child(3) > label > span"
+          ],
+          "html": "<span>Аэрофото 1942 г. — город до разрушения</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(2) > .layer-option:nth-child(3) > .layer-desc"
+          ],
+          "html": "<div class=\"layer-desc\">\n          <span class=\"badge\">volmap.ru</span><br>\n          Аэрофотосъёмка Сталинграда весны 1942 года (до начала битвы). Слой подключается как подложка.\n        </div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(2) > .layer-option:nth-child(4) > label > span"
+          ],
+          "html": "<span>Аэрофото 1943 г. — разрушенный город</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".layer-option:nth-child(4) > .layer-desc"
+          ],
+          "html": "<div class=\"layer-desc\">\n          <span class=\"badge\">volmap.ru</span><br>\n          Аэрофотосъёмка 29 марта 1943 г. (после 200 дней битвы). Заменил архивный план 1:20 000.\n        </div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#swipeSectionTitle"
+          ],
+          "html": "<span id=\"swipeSectionTitle\">Шторка: Волгоград ⇄ Сталинград 1942</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "label[for=\"rngSwipe\"]"
+          ],
+          "html": "<label for=\"rngSwipe\">Двигать шторку:</label>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(3) > .section-hdr"
+          ],
+          "html": "<div class=\"section-hdr\">3. Векторная карта Сталинграда (планировка)</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "div:nth-child(3) > .layer-option:nth-child(2) > label > span"
+          ],
+          "html": "<span>Тёмная карта города (по стилю SVG)</span>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "#mouseCoords"
+          ],
+          "html": "<div id=\"mouseCoords\">Курсор: 48.71609° N, 44.53139° E (EPSG:4326)</div>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".status-link"
+          ],
+          "html": "<a class=\"status-link\" href=\"https://volmap.ru/stalingrad43-map\" target=\"_blank\" rel=\"noopener noreferrer\">Аэроснимки</a>",
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
+        }
+      ]
+    },
+    {
+      "id": "label-content-name-mismatch",
+      "impact": "serious",
+      "description": "Ensure that elements labelled through their content must have their visible text as part of their accessible name",
+      "help": "Elements must have their visible text as part of their accessible name",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/label-content-name-mismatch?application=axeAPI",
+      "nodes": [
+        {
+          "target": [
+            ".leaflet-control-zoom-in"
+          ],
+          "html": "<a class=\"leaflet-control-zoom-in\" href=\"#\" title=\"Zoom in\" role=\"button\" aria-label=\"Zoom in\" aria-disabled=\"false\"><span aria-hidden=\"true\">+</span></a>",
+          "failureSummary": "Fix any of the following:\n  Unable to determine if the visible text is part of the accessible name"
+        },
+        {
+          "target": [
+            ".leaflet-control-zoom-out"
+          ],
+          "html": "<a class=\"leaflet-control-zoom-out\" href=\"#\" title=\"Zoom out\" role=\"button\" aria-label=\"Zoom out\" aria-disabled=\"false\"><span aria-hidden=\"true\">−</span></a>",
+          "failureSummary": "Fix any of the following:\n  Unable to determine if the visible text is part of the accessible name"
+        }
+      ]
+    },
+    {
+      "id": "link-in-text-block",
+      "impact": "serious",
+      "description": "Ensure links are distinguished from surrounding text in a way that does not rely on color",
+      "help": "Links must be distinguishable without relying on color",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/link-in-text-block?application=axeAPI",
+      "nodes": [
+        {
+          "target": [
+            "a[href$=\"leafletjs.com\"]"
+          ],
+          "html": "<a href=\"https://leafletjs.com\" title=\"A JavaScript library for interactive maps\">",
+          "failureSummary": "Fix any of the following:\n  Element's contrast ratio could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            ".leaflet-control-attribution > a[target=\"_blank\"][rel=\"noopener noreferrer\"]:nth-child(3)"
+          ],
+          "html": "<a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\" rel=\"noopener noreferrer\">OpenStreetMap</a>",
+          "failureSummary": "Fix any of the following:\n  Element's contrast ratio could not be determined because element contains an image node"
+        },
+        {
+          "target": [
+            "a[href$=\"hotosm.org/\"]"
+          ],
+          "html": "<a href=\"https://www.hotosm.org/\" target=\"_blank\" rel=\"noopener noreferrer\">HOT</a>",
+          "failureSummary": "Fix any of the following:\n  Element's contrast ratio could not be determined because element contains an image node"
+        }
+      ]
+    }
+  ],
+  "passes": 27
+}

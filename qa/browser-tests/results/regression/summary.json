@@ -1,0 +1,159 @@
+{
+  "target": "file:///C:/Users/layba/Documents/GitHub/web_atlas_stalingrad/index.html",
+  "checks": [
+    {
+      "ok": true,
+      "message": "Остались только два основных встроенных сценария"
+    },
+    {
+      "ok": true,
+      "message": "Посторонний редакторский сценарий удалён"
+    },
+    {
+      "ok": true,
+      "message": "Атрибуция карты видима"
+    },
+    {
+      "ok": true,
+      "message": "Атрибуция содержит OSM и HOT"
+    },
+    {
+      "ok": true,
+      "message": "Атрибуция не перекрыта нижней панелью"
+    },
+    {
+      "ok": true,
+      "message": "В современной эпохе обе панели имеют прозрачность 0.92"
+    },
+    {
+      "ok": true,
+      "message": "В эпохе 1942 года обе панели имеют прозрачность 0.55"
+    },
+    {
+      "ok": true,
+      "message": "При значении 0% полностью скрываются и аэрофото, и векторный слой"
+    },
+    {
+      "ok": true,
+      "message": "Ползунок одинаково меняет прозрачность аэрофото и векторного слоя"
+    },
+    {
+      "ok": true,
+      "message": "Прозрачность озвучивается в процентах"
+    },
+    {
+      "ok": true,
+      "message": "Смена подложки не сбрасывает выбранную эпоху"
+    },
+    {
+      "ok": true,
+      "message": "Смена подложки не отключает аэрофото"
+    },
+    {
+      "ok": true,
+      "message": "Смена подложки не включает векторный слой против выбора пользователя"
+    },
+    {
+      "ok": true,
+      "message": "Смена подложки не сбрасывает прозрачность"
+    },
+    {
+      "ok": true,
+      "message": "Положение шторки озвучивается в процентах"
+    },
+    {
+      "ok": true,
+      "message": "Маркер и навигация вокзала используют уточнённые координаты"
+    },
+    {
+      "ok": true,
+      "message": "Карточка мельницы содержит уточнённую датировку и сведения о консервации"
+    },
+    {
+      "ok": true,
+      "message": "Из карточки мельницы удалено неподтверждённое утверждение"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных ошибок JavaScript"
+    },
+    {
+      "ok": true,
+      "message": "Адаптивный интерфейс корректен при ширине 900px"
+    },
+    {
+      "ok": true,
+      "message": "Адаптивный интерфейс корректен при ширине 901px"
+    },
+    {
+      "ok": true,
+      "message": "Адаптивный интерфейс корректен при ширине 1100px"
+    },
+    {
+      "ok": true,
+      "message": "Адаптивный интерфейс корректен при ширине 1101px"
+    },
+    {
+      "ok": true,
+      "message": "Адаптивный интерфейс корректен при ширине 1280px"
+    },
+    {
+      "ok": true,
+      "message": "Нет ошибок JavaScript на контрольных ширинах"
+    }
+  ],
+  "responsive": [
+    {
+      "width": 900,
+      "mobileExpected": true,
+      "sidebarToggleVisible": true,
+      "coordsToggleVisible": true,
+      "sidebarVisible": false,
+      "horizontalOverflow": false,
+      "attributionVisible": true,
+      "ok": true
+    },
+    {
+      "width": 901,
+      "mobileExpected": true,
+      "sidebarToggleVisible": true,
+      "coordsToggleVisible": true,
+      "sidebarVisible": false,
+      "horizontalOverflow": false,
+      "attributionVisible": true,
+      "ok": true
+    },
+    {
+      "width": 1100,
+      "mobileExpected": true,
+      "sidebarToggleVisible": true,
+      "coordsToggleVisible": true,
+      "sidebarVisible": false,
+      "horizontalOverflow": false,
+      "attributionVisible": true,
+      "ok": true
+    },
+    {
+      "width": 1101,
+      "mobileExpected": false,
+      "sidebarToggleVisible": false,
+      "coordsToggleVisible": false,
+      "sidebarVisible": true,
+      "horizontalOverflow": false,
+      "attributionVisible": true,
+      "ok": true
+    },
+    {
+      "width": 1280,
+      "mobileExpected": false,
+      "sidebarToggleVisible": false,
+      "coordsToggleVisible": false,
+      "sidebarVisible": true,
+      "horizontalOverflow": false,
+      "attributionVisible": true,
+      "ok": true
+    }
+  ],
+  "pageErrors": [],
+  "ok": true
+}

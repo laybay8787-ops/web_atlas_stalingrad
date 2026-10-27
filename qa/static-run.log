@@ -1,0 +1,116 @@
+{
+  "html_bytes": 1569578,
+  "inline_app_js_chars": 1500062,
+  "inline_editor_js_chars": 15702,
+  "city_data_keys": [
+    "streets",
+    "rails",
+    "water",
+    "islands",
+    "photos"
+  ],
+  "street_segments": 3104,
+  "coordinate_pairs": 12345,
+  "coordinate_issues": [],
+  "photos": [
+    {
+      "name": "pavlov1943",
+      "uri_chars": 72159,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        635,
+        412
+      ],
+      "bytes": 54100
+    },
+    {
+      "name": "pavlov2021",
+      "uri_chars": 187191,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        1100,
+        597
+      ],
+      "bytes": 140376
+    },
+    {
+      "name": "pavlov2024",
+      "uri_chars": 85563,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        1100,
+        825
+      ],
+      "bytes": 64153
+    },
+    {
+      "name": "aerial_annot",
+      "uri_chars": 91827,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        633,
+        484
+      ],
+      "bytes": 68852
+    },
+    {
+      "name": "scheme_pavlov",
+      "uri_chars": 131987,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        628,
+        824
+      ],
+      "bytes": 98973
+    },
+    {
+      "name": "aerial_circles",
+      "uri_chars": 84619,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        554,
+        554
+      ],
+      "bytes": 63447
+    },
+    {
+      "name": "karta",
+      "uri_chars": 93395,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        1053,
+        350
+      ],
+      "bytes": 70029
+    },
+    {
+      "name": "aerial1943big",
+      "uri_chars": 160003,
+      "ok": true,
+      "format": "JPEG",
+      "dimensions": [
+        928,
+        482
+      ],
+      "bytes": 119984
+    }
+  ],
+  "duplicate_ids": [],
+  "unlabelled_controls": [
+    "locSelect",
+    "rngSwipe",
+    "rngOpacity"
+  ],
+  "target_blank_missing_noopener": [],
+  "static_images_missing_alt": [],
+  "missing_js_id_targets": [],
+  "mixed_content_links": [],
+  "external_link_count": 11
+}

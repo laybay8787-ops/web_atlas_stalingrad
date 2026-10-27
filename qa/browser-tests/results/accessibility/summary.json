@@ -1,0 +1,96 @@
+[
+  {
+    "state": "desktop-initial",
+    "violations": []
+  },
+  {
+    "state": "desktop-swipe",
+    "violations": []
+  },
+  {
+    "state": "desktop-card",
+    "violations": []
+  },
+  {
+    "state": "desktop-card-mill",
+    "violations": []
+  },
+  {
+    "state": "desktop-card-zabolotny",
+    "violations": []
+  },
+  {
+    "state": "desktop-dialog",
+    "violations": []
+  },
+  {
+    "state": "desktop-keyboard",
+    "trapPassed": true,
+    "focusAfterEscape": {
+      "tag": "BUTTON",
+      "id": "btnSources",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Источники",
+      "visible": true,
+      "rect": {
+        "x": 1194.21875,
+        "y": 775,
+        "width": 77.78125,
+        "height": 23
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    "mapTabStops": {
+      "total": 5,
+      "offscreen": 0,
+      "sample": []
+    },
+    "invisibleFocused": 0,
+    "outsideViewport": 0
+  },
+  {
+    "state": "mobile-initial",
+    "violations": []
+  },
+  {
+    "state": "mobile-sidebar",
+    "violations": []
+  },
+  {
+    "state": "mobile-coords",
+    "violations": []
+  },
+  {
+    "state": "mobile-dialog",
+    "violations": []
+  },
+  {
+    "state": "mobile-keyboard",
+    "trapPassed": true,
+    "focusAfterEscape": {
+      "tag": "BUTTON",
+      "id": "btnSources",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Источники",
+      "visible": true,
+      "rect": {
+        "x": 327.21875,
+        "y": 812,
+        "width": 77.78125,
+        "height": 23
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    "mapTabStops": {
+      "total": 5,
+      "offscreen": 0,
+      "sample": []
+    },
+    "invisibleFocused": 0,
+    "outsideViewport": 0
+  }
+]

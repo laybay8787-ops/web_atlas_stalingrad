@@ -1,0 +1,718 @@
+{
+  "trapPassed": true,
+  "trap": [
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 457.828125,
+        "y": 265.5,
+        "width": 177.875,
+        "height": 17
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 864.375,
+        "y": 202,
+        "width": 36.625,
+        "height": 31
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 457.828125,
+        "y": 265.5,
+        "width": 177.875,
+        "height": 17
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 864.375,
+        "y": 202,
+        "width": 36.625,
+        "height": 31
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 457.828125,
+        "y": 265.5,
+        "width": 177.875,
+        "height": 17
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 864.375,
+        "y": 202,
+        "width": 36.625,
+        "height": 31
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 457.828125,
+        "y": 265.5,
+        "width": 177.875,
+        "height": 17
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 864.375,
+        "y": 202,
+        "width": 36.625,
+        "height": 31
+      },
+      "inViewport": true,
+      "insideDialog": true
+    }
+  ],
+  "focusAfterEscape": {
+    "tag": "BUTTON",
+    "id": "btnSources",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Источники",
+    "visible": true,
+    "rect": {
+      "x": 1194.21875,
+      "y": 775,
+      "width": 77.78125,
+      "height": 23
+    },
+    "inViewport": true,
+    "insideDialog": false
+  },
+  "mapTabStops": {
+    "total": 5,
+    "offscreen": 0,
+    "sample": []
+  },
+  "sequence": [
+    {
+      "tag": "BODY",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "DIV",
+      "id": "map",
+      "role": "application",
+      "ariaLabel": "Интерактивная карта Сталинграда и современного Волгограда",
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "path",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "",
+      "visible": true,
+      "rect": {
+        "x": 643.8583984375,
+        "y": 295.36456298828125,
+        "width": 27.330078125,
+        "height": 27.33013916015625
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom in",
+      "text": "+",
+      "visible": true,
+      "rect": {
+        "x": 1238,
+        "y": 677.203125,
+        "width": 30,
+        "height": 30
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom out",
+      "text": "−",
+      "visible": true,
+      "rect": {
+        "x": 1238,
+        "y": 707.203125,
+        "width": 30,
+        "height": 30
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Leaflet",
+      "visible": true,
+      "rect": {
+        "x": 837.140625,
+        "y": 750.203125,
+        "width": 51.375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "OpenStreetMap",
+      "visible": true,
+      "rect": {
+        "x": 910.5,
+        "y": 750.203125,
+        "width": 84.71875,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "HOT",
+      "visible": true,
+      "rect": {
+        "x": 1036.6875,
+        "y": 750.203125,
+        "width": 24,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Современность",
+      "visible": true,
+      "rect": {
+        "x": 311.734375,
+        "y": 21,
+        "width": 120.3125,
+        "height": 28
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1942",
+      "visible": true,
+      "rect": {
+        "x": 436.046875,
+        "y": 21,
+        "width": 126.296875,
+        "height": 28
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1943",
+      "visible": true,
+      "rect": {
+        "x": 566.34375,
+        "y": 21,
+        "width": 126.296875,
+        "height": 28
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "SELECT",
+      "id": "locSelect",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова (ул. Советская, 39 / Пензенская, 61)\nДом Заболотного (Дом Совконтроля)\nГосмельница № 4 (",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 77,
+        "width": 344,
+        "height": 31
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnFlyPavlov",
+      "role": null,
+      "ariaLabel": null,
+      "text": "К Дому Павлова",
+      "visible": true,
+      "rect": {
+        "x": 377,
+        "y": 78,
+        "width": 130.5,
+        "height": 29
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnOverview",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Весь город",
+      "visible": true,
+      "rect": {
+        "x": 513.5,
+        "y": 78,
+        "width": 98.4375,
+        "height": 29
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "coordInput",
+      "role": null,
+      "ariaLabel": null,
+      "text": "",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 136,
+        "width": 155,
+        "height": 29
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnGoCoord",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Перейти",
+      "visible": true,
+      "rect": {
+        "x": 188,
+        "y": 136,
+        "width": 80.109375,
+        "height": 29
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "detailed",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 252,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkAerial42",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 483.75,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkAerial43",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 563.953125,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkSwipe",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 644.15625,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkVector1942",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 723.15625,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkFrontLine",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 474.96875,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkVecLabels",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 554.515625,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkQuarter",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 584.515625,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "rngOpacity",
+      "role": null,
+      "ariaLabel": null,
+      "text": "55",
+      "visible": true,
+      "rect": {
+        "x": 167.703125,
+        "y": 654.546875,
+        "width": 129,
+        "height": 16
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkAerial1943",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 727.546875,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "INPUT",
+      "id": "chkObjects",
+      "role": null,
+      "ariaLabel": null,
+      "text": "on",
+      "visible": true,
+      "rect": {
+        "x": 27,
+        "y": 474.75,
+        "width": 13,
+        "height": 13
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Аэроснимки",
+      "visible": true,
+      "rect": {
+        "x": 1120.875,
+        "y": 779,
+        "width": 65.34375,
+        "height": 15
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnSources",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Источники",
+      "visible": true,
+      "rect": {
+        "x": 1194.21875,
+        "y": 775,
+        "width": 77.78125,
+        "height": 23
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BODY",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова — нажмите для открытия карточки\nМАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛ",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "DIV",
+      "id": "map",
+      "role": "application",
+      "ariaLabel": "Интерактивная карта Сталинграда и современного Волгограда",
+      "text": "Дом Павлова — нажмите для открытия карточки\nМАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛ",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 800
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "path",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "",
+      "visible": true,
+      "rect": {
+        "x": 654.2579345703125,
+        "y": 284.8832092285156,
+        "width": 28.3277587890625,
+        "height": 28.32769775390625
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom in",
+      "text": "+",
+      "visible": true,
+      "rect": {
+        "x": 1238,
+        "y": 677.203125,
+        "width": 30,
+        "height": 30
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom out",
+      "text": "−",
+      "visible": true,
+      "rect": {
+        "x": 1238,
+        "y": 707.203125,
+        "width": 30,
+        "height": 30
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Leaflet",
+      "visible": true,
+      "rect": {
+        "x": 837.140625,
+        "y": 750.203125,
+        "width": 51.375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    }
+  ],
+  "invisibleFocused": [],
+  "outsideViewport": []
+}

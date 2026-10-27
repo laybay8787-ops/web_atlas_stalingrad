@@ -1,0 +1,372 @@
+{
+  "name": "chromium-android-emulation",
+  "checks": [
+    {
+      "ok": true,
+      "message": "Карта видима"
+    },
+    {
+      "ok": true,
+      "message": "Leaflet загружен"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1942 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1942 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1943 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1943 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха modern активна"
+    },
+    {
+      "ok": true,
+      "message": "Подложка carto выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка sat выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка detailed выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Навигация pavlov: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация zabolotny: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mill: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация square: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация ogareva: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация kommunal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация elevator: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация vokzal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mamayev: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация stz: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Некорректные координаты отклонены"
+    },
+    {
+      "ok": true,
+      "message": "Корректные координаты приняты"
+    },
+    {
+      "ok": true,
+      "message": "Показаны 9 объектов"
+    },
+    {
+      "ok": true,
+      "message": "Основной маркер восстановлен"
+    },
+    {
+      "ok": true,
+      "message": "Шторка перемещается"
+    },
+    {
+      "ok": true,
+      "message": "Стороны шторки меняются"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников открывается"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников закрывается по Escape"
+    },
+    {
+      "ok": true,
+      "message": "Мобильная панель слоёв открывается"
+    },
+    {
+      "ok": true,
+      "message": "Панель координат закрывает панель слоёв"
+    },
+    {
+      "ok": true,
+      "message": "Мобильная панель координат открывается"
+    },
+    {
+      "ok": true,
+      "message": "Нет горизонтального переполнения документа"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных ошибок JavaScript"
+    }
+  ],
+  "pageErrors": [],
+  "requestFailures": [
+    {
+      "url": "https://volmap.ru/files/st43/17/45170/81748.jpg",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45169@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45170@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45169@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45169@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45170@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45170@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45168@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.basemaps.cartocdn.com/rastertiles/voyager/17/81749/45171@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45168@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45168@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.basemaps.cartocdn.com/rastertiles/voyager/17/81748/45171@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.basemaps.cartocdn.com/rastertiles/voyager/17/81750/45171@2x.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81749",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81749",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81748",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45169/81750",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81748",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45170/81750",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81749",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81749",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81748",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45168/81750",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81748",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/17/45171/81750",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40874/22584.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40875/22584.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40874/22585.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40875/22585.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22583.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22583.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22586.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22586.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20436/11292.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20437/11292.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20436/11291.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/15/20437/11291.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/15/20436/11293.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/15/20437/11293.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40874/22584.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40874/22585.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40873/22584.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40875/22584.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40873/22585.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40875/22585.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22583.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40874/22586.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40873/22583.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22583.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40873/22586.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40875/22586.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40874/22582.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40874/22587.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://c.tile.openstreetmap.fr/hot/16/40873/22582.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40875/22582.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://b.tile.openstreetmap.fr/hot/16/40873/22587.png",
+      "error": "net::ERR_ABORTED"
+    },
+    {
+      "url": "https://a.tile.openstreetmap.fr/hot/16/40875/22587.png",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "httpStatus": 200,
+  "userAgent": "Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Mobile Safari/537.36",
+  "horizontalOverflow": false,
+  "ok": true
+}

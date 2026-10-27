@@ -1,0 +1,718 @@
+{
+  "trapPassed": true,
+  "trap": [
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 25,
+        "y": 231,
+        "width": 331.65625,
+        "height": 36.5
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 350.375,
+        "y": 158.5,
+        "width": 36.625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 25,
+        "y": 231,
+        "width": 331.65625,
+        "height": 36.5
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 350.375,
+        "y": 158.5,
+        "width": 36.625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 25,
+        "y": 231,
+        "width": 331.65625,
+        "height": 36.5
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 350.375,
+        "y": 158.5,
+        "width": 36.625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Open Database License (ODbL)",
+      "visible": true,
+      "rect": {
+        "x": 25,
+        "y": 231,
+        "width": 331.65625,
+        "height": 36.5
+      },
+      "inViewport": true,
+      "insideDialog": true
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnCloseSources",
+      "role": null,
+      "ariaLabel": "Закрыть источники",
+      "text": "✕",
+      "visible": true,
+      "rect": {
+        "x": 350.375,
+        "y": 158.5,
+        "width": 36.625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": true
+    }
+  ],
+  "focusAfterEscape": {
+    "tag": "BUTTON",
+    "id": "btnSources",
+    "role": null,
+    "ariaLabel": null,
+    "text": "Источники",
+    "visible": true,
+    "rect": {
+      "x": 327.21875,
+      "y": 812,
+      "width": 77.78125,
+      "height": 23
+    },
+    "inViewport": true,
+    "insideDialog": false
+  },
+  "mapTabStops": {
+    "total": 5,
+    "offscreen": 0,
+    "sample": []
+  },
+  "sequence": [
+    {
+      "tag": "BODY",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 839
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "DIV",
+      "id": "map",
+      "role": "application",
+      "ariaLabel": "Интерактивная карта Сталинграда и современного Волгограда",
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 839
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "path",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "",
+      "visible": true,
+      "rect": {
+        "x": 197,
+        "y": 410,
+        "width": 18,
+        "height": 18
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom in",
+      "text": "+",
+      "visible": true,
+      "rect": {
+        "x": 362,
+        "y": 700.203125,
+        "width": 38,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom out",
+      "text": "−",
+      "visible": true,
+      "rect": {
+        "x": 362,
+        "y": 738.203125,
+        "width": 38,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Leaflet",
+      "visible": true,
+      "rect": {
+        "x": 182.109375,
+        "y": 789.203125,
+        "width": 51.375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "OpenStreetMap",
+      "visible": true,
+      "rect": {
+        "x": 255.46875,
+        "y": 789.203125,
+        "width": 84.71875,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "HOT",
+      "visible": true,
+      "rect": {
+        "x": 381.65625,
+        "y": 789.203125,
+        "width": 25.34375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Современность",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 53,
+        "width": 104.515625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1942",
+      "visible": true,
+      "rect": {
+        "x": 126.515625,
+        "y": 53,
+        "width": 109.78125,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1943",
+      "visible": true,
+      "rect": {
+        "x": 240.296875,
+        "y": 53,
+        "width": 109.78125,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "SELECT",
+      "id": "locSelect",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова (ул. Советская, 39 / Пензенская, 61)\nДом Заболотного (Дом Совконтроля)\nГосмельница № 4 (",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 114,
+        "width": 376,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnFlyPavlov",
+      "role": null,
+      "ariaLabel": null,
+      "text": "К Дому Павлова",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 176.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnOverview",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Весь город",
+      "visible": true,
+      "rect": {
+        "x": 208.5,
+        "y": 176.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnToggleSidebar",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Слои и легенда",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 219.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnToggleCoords",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Координаты",
+      "visible": true,
+      "rect": {
+        "x": 208.5,
+        "y": 219.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnSources",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Источники",
+      "visible": true,
+      "rect": {
+        "x": 327.21875,
+        "y": 812,
+        "width": 77.78125,
+        "height": 23
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BODY",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова — нажмите для открытия карточки\nМАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛ",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 839
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "DIV",
+      "id": "map",
+      "role": "application",
+      "ariaLabel": "Интерактивная карта Сталинграда и современного Волгограда",
+      "text": "Дом Павлова — нажмите для открытия карточки\nМАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛ",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 839
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "path",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "",
+      "visible": true,
+      "rect": {
+        "x": 197,
+        "y": 410,
+        "width": 18,
+        "height": 18
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom in",
+      "text": "+",
+      "visible": true,
+      "rect": {
+        "x": 362,
+        "y": 700.203125,
+        "width": 38,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": "button",
+      "ariaLabel": "Zoom out",
+      "text": "−",
+      "visible": true,
+      "rect": {
+        "x": 362,
+        "y": 738.203125,
+        "width": 38,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Leaflet",
+      "visible": true,
+      "rect": {
+        "x": 182.109375,
+        "y": 789.203125,
+        "width": 51.375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "OpenStreetMap",
+      "visible": true,
+      "rect": {
+        "x": 255.46875,
+        "y": 789.203125,
+        "width": 84.71875,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "HOT",
+      "visible": true,
+      "rect": {
+        "x": 381.65625,
+        "y": 789.203125,
+        "width": 25.34375,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Современность",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 53,
+        "width": 104.515625,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1942",
+      "visible": true,
+      "rect": {
+        "x": 126.515625,
+        "y": 53,
+        "width": 109.78125,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Сталинград 1943",
+      "visible": true,
+      "rect": {
+        "x": 240.296875,
+        "y": 53,
+        "width": 109.78125,
+        "height": 40
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "SELECT",
+      "id": "locSelect",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова (ул. Советская, 39 / Пензенская, 61)\nДом Заболотного (Дом Совконтроля)\nГосмельница № 4 (",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 114,
+        "width": 376,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnFlyPavlov",
+      "role": null,
+      "ariaLabel": null,
+      "text": "К Дому Павлова",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 176.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnOverview",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Весь город",
+      "visible": true,
+      "rect": {
+        "x": 208.5,
+        "y": 176.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnToggleSidebar",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Слои и легенда",
+      "visible": true,
+      "rect": {
+        "x": 18,
+        "y": 219.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnToggleCoords",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Координаты",
+      "visible": true,
+      "rect": {
+        "x": 208.5,
+        "y": 219.296875,
+        "width": 185.5,
+        "height": 38
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BUTTON",
+      "id": "btnSources",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Источники",
+      "visible": true,
+      "rect": {
+        "x": 327.21875,
+        "y": 812,
+        "width": 77.78125,
+        "height": 23
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "BODY",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "Дом Павлова — нажмите для открытия карточки\nМАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛ",
+      "visible": true,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 412,
+        "height": 839
+      },
+      "inViewport": true,
+      "insideDialog": false
+    }
+  ],
+  "invisibleFocused": [],
+  "outsideViewport": []
+}

@@ -1,0 +1,143 @@
+{
+  "name": "webkit-iphone-emulation",
+  "checks": [
+    {
+      "ok": true,
+      "message": "Карта видима"
+    },
+    {
+      "ok": true,
+      "message": "Leaflet загружен"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1942 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1942 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха 1943 активна"
+    },
+    {
+      "ok": true,
+      "message": "Аэрофото 1943 включено"
+    },
+    {
+      "ok": true,
+      "message": "Эпоха modern активна"
+    },
+    {
+      "ok": true,
+      "message": "Подложка carto выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка sat выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Подложка detailed выбрана"
+    },
+    {
+      "ok": true,
+      "message": "Навигация pavlov: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация zabolotny: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mill: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация square: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация ogareva: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация kommunal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация elevator: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация vokzal: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация mamayev: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Навигация stz: состояние карточки корректно"
+    },
+    {
+      "ok": true,
+      "message": "Некорректные координаты отклонены"
+    },
+    {
+      "ok": true,
+      "message": "Корректные координаты приняты"
+    },
+    {
+      "ok": true,
+      "message": "Показаны 9 объектов"
+    },
+    {
+      "ok": true,
+      "message": "Основной маркер восстановлен"
+    },
+    {
+      "ok": true,
+      "message": "Шторка перемещается"
+    },
+    {
+      "ok": true,
+      "message": "Стороны шторки меняются"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников открывается"
+    },
+    {
+      "ok": true,
+      "message": "Диалог источников закрывается по Escape"
+    },
+    {
+      "ok": true,
+      "message": "Мобильная панель слоёв открывается"
+    },
+    {
+      "ok": true,
+      "message": "Панель координат закрывает панель слоёв"
+    },
+    {
+      "ok": true,
+      "message": "Мобильная панель координат открывается"
+    },
+    {
+      "ok": true,
+      "message": "Нет горизонтального переполнения документа"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных ошибок JavaScript"
+    }
+  ],
+  "pageErrors": [],
+  "requestFailures": [],
+  "httpStatus": 200,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Mobile/15E148 Safari/604.1",
+  "horizontalOverflow": false,
+  "ok": true
+}

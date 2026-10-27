@@ -111,7 +111,7 @@
       pointer-events: none; /* сама панель не перехватывает клики по карте (BUG-002) */
     }
     .top-bar > * { pointer-events: auto; }
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       .top-bar { max-width: calc(100vw - 24px); }
       .sidebar-left { width: 290px; top: 210px; }
       .object-card { width: calc(100vw - 24px); }
@@ -323,7 +323,7 @@
     .btn, .era-btn, select, input[type="text"] { max-width: 100%; }
     #coordInput[aria-invalid="true"] { border-color: #dc2626; box-shadow: 0 0 0 2px rgba(220, 38, 38, .18); }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       .mobile-only { display: inline-flex; align-items: center; justify-content: center; }
       .top-bar {
         z-index: 1300; /* меню остаётся доступным поверх выдвинутых мобильных панелей */
@@ -374,11 +374,11 @@
     .coord-feedback.error { color: #b91c1c; }
     .coord-feedback.ok { color: #166534; }
     .loc-select-full { display: none; }
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       .loc-select-full { display: block; grid-column: 1 / -1; font-size: 11px; color: var(--text-muted); line-height: 1.3; padding: 0 2px; }
     }
 
-    @media (max-width: 900px) and (max-height: 560px) {
+    @media (max-width: 1100px) and (max-height: 560px) {
       .top-bar { max-height: 50dvh; overflow-y: auto; overflow-x: hidden; width: min(480px, calc(100vw - 16px)); right: auto; }
       .top-bar > .brand-title { font-size: 11px; padding-block: 5px; }
       .top-bar > .glass-panel { padding-block: 5px; }
@@ -423,9 +423,6 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
 
-  
-    /* Убираем плавающую строку атрибуции с карты: источники доступны через кнопку «Источники». */
-    .leaflet-control-attribution { display: none !important; }
     .bottom-status {
       background: rgba(14, 15, 18, 0.98) !important;
       color: #f3f4f6 !important;
@@ -479,7 +476,7 @@
     .source-dialog-header h2 { font-size: 18px; line-height: 1.25; margin: 0; }
     .source-dialog-panel p { margin: 10px 0; font-size: 13px; }
     .source-dialog-panel a { color: #93c5fd; text-decoration: underline; overflow-wrap: anywhere; }
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       .bottom-status { height: 32px; padding: 0 7px; font-size: 10px; }
       .status-actions { gap: 5px; }
       .status-link { display: none; }
@@ -528,6 +525,7 @@
     </div>
 
     <div class="glass-panel nav-controls">
+      <label class="sr-only" for="locSelect">Выбор исторического объекта</label>
       <select id="locSelect">
         <option value="pavlov">Дом Павлова (ул. Советская, 39 / Пензенская, 61)</option>
         <option value="zabolotny">Дом Заболотного (Дом Совконтроля)</option>
@@ -556,7 +554,7 @@
   </div>
 
   <!-- Левая панель -->
-  <div class="sidebar-left glass-panel" id="sidebarLeft" aria-label="Слои карты и условные обозначения">
+  <div class="sidebar-left glass-panel" id="sidebarLeft" role="region" aria-label="Слои карты и условные обозначения">
     <div>
       <div class="section-hdr">1. Современная карта (Волгоград)</div>
       <div class="layer-option">
@@ -599,9 +597,9 @@
         </label>
       </div>
       <div class="slider-row" id="swipeRow" style="display:none;">
-        <span>Двигать шторку:</span>
-        <input type="range" id="rngSwipe" min="22" max="78" value="50" step="1">
-        <button class="btn" id="btnSwapSides" title="Поменять стороны местами">⇄ Стороны</button>
+        <label for="rngSwipe">Двигать шторку:</label>
+        <input type="range" id="rngSwipe" min="22" max="78" value="50" step="1" aria-valuetext="50%">
+        <button class="btn" id="btnSwapSides" type="button" title="Поменять стороны местами">⇄ Стороны</button>
       </div>
     </div>
 
@@ -633,8 +631,8 @@
         </div>
       </div>
       <div class="slider-row">
-        <span>Прозрачность карты 1942 г.:</span>
-        <input type="range" id="rngOpacity" min="0" max="100" value="92">
+        <label for="rngOpacity">Прозрачность карты 1942 г.:</label>
+        <input type="range" id="rngOpacity" min="0" max="100" value="92" aria-valuetext="92%">
         <strong id="lblOpacity" style="width:36px;text-align:right;">92%</strong>
       </div>
     </div>
@@ -856,7 +854,7 @@ const map = L.map('map', {
   minZoom: 12,
   maxZoom: 19,
   zoomControl: false,
-  attributionControl: false
+  attributionControl: true
 });
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(map);
@@ -877,7 +875,7 @@ function updateMapLabelScale() {
 }
 map.on('zoomend', updateMapLabelScale);
 updateMapLabelScale();
-// Source credits are shown in the accessible “Источники” dialog, not over the map.
+// Атрибуция остаётся на карте и дополнительно продублирована в диалоге «Источники».
 
 // Панели исторических слоёв:
 // eraTilesPane (z=440) — аэрофото 1942/1943, st1942Pane (z=450) — тёмная векторная карта 1942 г.
@@ -892,16 +890,17 @@ const aerialAnnotPane = map.createPane('aerialAnnotPane');
 aerialAnnotPane.style.zIndex = 455; // выше карты 1942 г. (450), ниже маркеров (470)
 
 // ============ 2. Подложки ============
+const osmAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>';
 const detailedBase = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-  maxZoom: 19, attribution: 'Tiles style by HOT'
+  maxZoom: 19, attribution: osmAttribution + ', стиль <a href="https://www.hotosm.org/" target="_blank" rel="noopener noreferrer">HOT</a>'
 }).addTo(map);
 
 const cartoLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  maxZoom: 19, attribution: '© CARTO'
+  maxZoom: 19, attribution: osmAttribution + ' &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>'
 });
 
 const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  maxZoom: 19, attribution: '© Esri'
+  maxZoom: 19, attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener noreferrer">Esri</a>, Maxar, Earthstar Geographics, GIS User Community'
 });
 
 // Аэрофотосъёмка volmap.ru (замена архивного плана 1:20 000).
@@ -954,14 +953,15 @@ function setEra(era) {
   // заголовок секции шторки тоже показывает активную эпоху
   const swipeTitle = document.getElementById('swipeSectionTitle');
   if (swipeTitle) swipeTitle.textContent = 'Шторка: Волгоград ⇄ Сталинград ' + (era === 'modern' ? '1942' : era);
-  // при исторических эпохах делаем карту 1942 г. полупрозрачной, чтобы было видно аэрофото
+  // Одно значение прозрачности применяется и к векторной карте, и к аэрофото.
   const rng = document.getElementById('rngOpacity');
   const lbl = document.getElementById('lblOpacity');
   if (era === 'modern') {
-    histPane.style.opacity = 0.92; eraTilesPane.style.opacity = 1; rng.value = 92; lbl.textContent = '92%';
+    histPane.style.opacity = 0.92; eraTilesPane.style.opacity = 0.92; rng.value = 92; lbl.textContent = '92%';
   } else {
-    histPane.style.opacity = 0.55; eraTilesPane.style.opacity = 1; rng.value = 55; lbl.textContent = '55%';
+    histPane.style.opacity = 0.55; eraTilesPane.style.opacity = 0.55; rng.value = 55; lbl.textContent = '55%';
   }
+  rng.setAttribute('aria-valuetext', rng.value + '%');
   updateSwipeClip();
 }
 
@@ -1103,7 +1103,8 @@ L.polyline(FRONT_LINE, {
  [48.7424,44.5369],[48.7330,44.5300],[48.7190,44.5245],[48.7103,44.5256],[48.6950,44.5200],
  [48.6830,44.5140]].forEach(p => {
   L.marker(p, {
-    pane: 'st1942Pane',
+    pane: 'st1942Pane', keyboard: false,
+    title: 'Точка переднего края обороны, 19 ноября 1942 года (схема)',
     icon: L.divIcon({ className: '', html: '<div class="t34-marker"></div>', iconSize: [16,16] })
   }).bindTooltip('Точка переднего края обороны (19.11.1942, схема)', { className: 'leaflet-tooltip-vec' })
     .addTo(frontLineGroup);
@@ -1132,7 +1133,7 @@ const LANDMARKS = [
 ];
 LANDMARKS.forEach(m => {
   L.marker(m.pos, {
-    pane: 'st1942Pane',
+    pane: 'st1942Pane', keyboard: false,
     icon: L.divIcon({ className: '', html: `<span class="${m.cls}" style="${m.italic ? 'font-style:italic;letter-spacing:3px;' : ''}">${m.txt}</span>`, iconSize: null })
   }).addTo(vecLabelsGroup);
 });
@@ -1162,7 +1163,7 @@ LANDMARKS.forEach(m => {
     const old = OLD_NAMES[name];
     const disp = old ? old : name.replace('улица ', '').replace(' улица', '');
     L.marker(labelPts[name].pos, {
-      pane: 'st1942Pane',
+      pane: 'st1942Pane', keyboard: false,
       icon: L.divIcon({ className: '', html: `<span class="vec-label-sm" style="color:#a9b5c9;">${disp}</span>`, iconSize: null })
     }).bindTooltip(name + (old ? `<br><span class="old-name">в 1942 г.: ${old}</span>` : ''), { className: 'leaflet-tooltip-vec' })
       .addTo(vecLabelsGroup);
@@ -1266,11 +1267,12 @@ const OBJECTS = {
     sub: 'Волгоград, ул. Маршала Чуйкова, 47а',
     statusTxt: 'сохранены руины',
     rows: [
-      ['Адрес в 1942 г.', 'г. Сталинград, ул. Пензенская (паровая мельница Гергардта, 1899 г.)'],
+      ['Адрес в 1942 г.', 'г. Сталинград, ул. Пензенская (паровая мельница Гергардта)'],
+      ['Датировка', 'строительство начато в 1899 г.; музей датирует существующее здание 1903 г.'],
       ['Оборона', 'сентябрь — ноябрь 1942 г., опорный пункт и КП батальона 42-го гв. сп']
     ],
     photos: ['aerial_circles'],
-    desc: 'Пятиэтажное здание паровой мельницы — ключевой узел Пензенского опорного пункта. После битвы законсервировано как памятник: руины без реставрации сохранены до настоящего времени рядом с музеем-панорамой «Сталинградская битва».'
+    desc: 'Пятиэтажное здание паровой мельницы — ключевой узел Пензенского опорного пункта. Руины сохранены как памятник рядом с музеем-панорамой «Сталинградская битва»; проводятся противоаварийные и консервационные работы.'
   },
   gruzchikov: {
     pos: [48.694674, 44.495311], status: 'kept', color: '#16a34a',
@@ -1319,7 +1321,7 @@ const OBJECTS = {
     photos: [],
   },
   vokzal: {
-    pos: [48.710000, 44.514000], status: 'rebuilt', color: '#16a34a',
+    pos: [48.712550, 44.513500], status: 'rebuilt', color: '#16a34a',
     title: 'Вокзал Сталинград-I',
     sub: 'Волгоград, Привокзальная пл.',
     statusTxt: 'разрушен, восстановлен',
@@ -1357,8 +1359,11 @@ function showObjectCard(key) {
   document.getElementById('cardTitle').textContent = o.title;
   document.getElementById('cardSub').textContent = o.sub;
   const statusColors = { kept: '#16a34a', rebuilt: '#16a34a', ruin: '#d97706', lost: '#dc2626' };
+  // Для текста нужен более тёмный оттенок: исходные цвета маркеров не дают
+  // достаточного контраста на светлом фоне карточки.
+  const statusTextColors = { kept: '#166534', rebuilt: '#166534', ruin: '#92400e', lost: '#b91c1c' };
   let html = '';
-  html += `<div style="margin-bottom:4px;"><span class="status-chip" style="background:${statusColors[o.status]}22;color:${statusColors[o.status]};border:1px solid ${statusColors[o.status]}55;">${o.statusTxt}</span></div>`;
+  html += `<div style="margin-bottom:4px;"><span class="status-chip" style="background:${statusColors[o.status]}22;color:${statusTextColors[o.status]};border:1px solid ${statusColors[o.status]}55;">${o.statusTxt}</span></div>`;
   html += '<table class="info-table">';
   o.rows.forEach(r => html += `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`);
   html += '</table>';
@@ -1406,7 +1411,7 @@ const NAV_TARGETS = {
   ogareva:   { coords: [48.694400, 44.495200], zoom: 18 },
   kommunal:  { coords: [48.693680, 44.495080], zoom: 18 },
   elevator:  { coords: [48.681075, 44.489200], zoom: 17 },
-  vokzal:    { coords: [48.710000, 44.514000], zoom: 17 },
+  vokzal:    { coords: [48.712550, 44.513500], zoom: 17 },
   mamayev:   { coords: [48.742400, 44.536900], zoom: 16 },
   stz:       { coords: [48.793800, 44.602900], zoom: 15 }
 };
@@ -1491,7 +1496,7 @@ const coordControls = document.getElementById('coordControls');
   const sb = document.getElementById('sidebarLeft');
   const tb = document.querySelector('.top-bar');
   if (!sb || !tb) return;
-  const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+  const isMobile = () => window.matchMedia('(max-width: 1100px)').matches;
   function apply() {
     if (isMobile()) { sb.style.top = ''; sb.style.maxHeight = ''; return; }
     const barBottom = Math.ceil(tb.getBoundingClientRect().bottom);
@@ -1533,7 +1538,12 @@ document.addEventListener('keydown', e => {
 
 // ============ 8. Переключение подложек и слоёв ============
 document.querySelectorAll('input[name="baseMap"]').forEach(radio => {
-  radio.addEventListener('change', () => setEra(currentEra));
+  radio.addEventListener('change', e => {
+    // Меняем только современную подложку: эпоха, исторические слои и прозрачность
+    // являются независимыми пользовательскими настройками.
+    [detailedBase, cartoLight, esriSat].forEach(layer => map.removeLayer(layer));
+    modernBases[e.target.value].addTo(map);
+  });
 });
 
 document.getElementById('chkAerial42').addEventListener('change', e => {
@@ -1570,7 +1580,7 @@ document.getElementById('chkObjects').addEventListener('change', e => {
   const card = document.getElementById('objectCard');
   if (visible) {
     // На мобильном экране закрываем панель слоёв, чтобы она не закрывала результат.
-    if (window.matchMedia('(max-width: 900px)').matches) {
+    if (window.matchMedia('(max-width: 1100px)').matches) {
       sidebarLeft.classList.remove('mobile-open');
       btnToggleSidebar.setAttribute('aria-expanded', 'false');
     }
@@ -1581,7 +1591,7 @@ document.getElementById('chkObjects').addEventListener('change', e => {
     const bounds = objectsGroup.getBounds();
     if (bounds.isValid()) {
       // Показываем пользователю результат включения слоя сразу; ограничиваем масштаб обзорным видом.
-      const padding = window.matchMedia('(max-width: 900px)').matches ? [30, 30] : [48, 48];
+      const padding = window.matchMedia('(max-width: 1100px)').matches ? [30, 30] : [48, 48];
       map.fitBounds(bounds, { padding, maxZoom: 13, animate: false });
     }
   } else {
@@ -1594,8 +1604,9 @@ document.getElementById('chkObjects').addEventListener('change', e => {
 document.getElementById('rngOpacity').addEventListener('input', e => {
   const v = Number(e.target.value) / 100;
   histPane.style.opacity = v;
-  eraTilesPane.style.opacity = Math.min(1, v + 0.45); // аэрофото чуть плотнее, чем карта
+  eraTilesPane.style.opacity = v;
   document.getElementById('lblOpacity').textContent = e.target.value + '%';
+  e.target.setAttribute('aria-valuetext', e.target.value + '%');
 });
 
 // ============ 9. Шторка сравнения ============
@@ -1606,6 +1617,7 @@ const swipeDivider = document.getElementById('swipeDivider');
 let swipeFlipped = false; // false: Сталинград слева; true: Сталинград справа
 
 function updateSwipeClip() {
+  rngSwipe.setAttribute('aria-valuetext', rngSwipe.value + '%');
   if (!chkSwipe.checked) {
     swipeDivider.style.display = 'none';
     applyPaneClip(null);
@@ -1753,6 +1765,7 @@ document.getElementById('btnSwapSides').addEventListener('click', () => {
 });
 
 histPane.style.opacity = 0.92;
+eraTilesPane.style.opacity = 0.92;
 
 // Стартовый клип листа карты
 map.whenReady(updateSwipeClip);
@@ -1772,445 +1785,5 @@ document.getElementById('btnCloseCard').addEventListener('click', () => {
 });
 </script>
 
-<script data-pplx-inline-edit>
-(function () {
-  if (window === window.top) return;
-
-  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://perplexity.localhost","http://localhost:1420","http://127.0.0.1:1420","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
-  const MAX_FONT_BYTES = 500 * 1024;
-  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
-  const DEFAULT_LINE_HEIGHT = 16;
-  let scrollForwarding = false;
-  let scrollRaf = 0;
-  let trustedTopOrigin = null;
-
-  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
-  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
-  // across multiple labels.
-  function matchesAllowedOrigin(origin) {
-    if (!origin) return false;
-    for (const entry of allowedParentOrigins) {
-      if (!entry.includes("*")) {
-        if (entry === origin) return true;
-        continue;
-      }
-      const pattern = new RegExp(
-        "^" +
-          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
-          "$",
-      );
-      if (pattern.test(origin)) return true;
-    }
-    return false;
-  }
-
-  // Trust decision: when the sender is same-origin-visible (event.origin is a
-  // real origin like https://www.perplexity.ai) we trust event.origin directly.
-  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
-  // broker's stamped `parentOrigin` to identify the top window. The fallback
-  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
-  // on the response path (see postToTrustedTop) to ensure replies can't be
-  // delivered to anyone but the actual top window of that claimed origin.
-  function getTrustedParentOrigin(event) {
-    const forwardedParentOrigin =
-      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
-    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
-    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
-  }
-
-  // All responses go to window.top with targetOrigin = the allowlisted origin.
-  // An attacker that iframes us inside their own null-origin broker can claim
-  // any parentOrigin they like, but the browser will drop the reply whenever
-  // the real top's origin doesn't match — so the screenshot never leaves.
-  function postToTrustedTop(message) {
-    if (!trustedTopOrigin) return;
-    try {
-      window.top.postMessage(message, trustedTopOrigin);
-    } catch (_error) {}
-  }
-
-  const PICK_CAPABILITIES = ["pick"];
-  const PICK_CHAIN_LENGTH = 4;
-  const PICK_MAX_TEXT_CHARS = 120;
-  const PICK_MAX_HTML_CHARS = 300;
-
-  function truncate(value, maxChars) {
-    return value.length > maxChars ? value.slice(0, maxChars - 1) + "…" : value;
-  }
-
-  function isPickableElement(element) {
-    return (
-      element instanceof Element &&
-      element !== document.documentElement &&
-      element !== document.body
-    );
-  }
-
-  function resolvePickTarget(x, y) {
-    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-    const element = document.elementFromPoint(x, y);
-    return isPickableElement(element) ? element.closest("svg") || element : null;
-  }
-
-  function pickLabel(element) {
-    if (element.id) return element.localName + "#" + element.id;
-    return [element.localName].concat(Array.from(element.classList).slice(0, 2)).join(".");
-  }
-
-  // Only attributes that help find the element in source. data-* values and URL
-  // query strings or fragments can carry tokens.
-  const PICK_ATTRIBUTES = new Set([
-    "id",
-    "class",
-    "name",
-    "type",
-    "role",
-    "alt",
-    "aria-label",
-    "href",
-    "src",
-  ]);
-
-  function pickAttributeValue(attribute) {
-    return attribute.name === "href" || attribute.name === "src"
-      ? attribute.value.split(/[?#]/)[0]
-      : attribute.value;
-  }
-
-  function describePickElement(element) {
-    const chain = [];
-    for (
-      let current = element;
-      isPickableElement(current) && chain.length < PICK_CHAIN_LENGTH;
-      current = current.parentElement
-    ) {
-      chain.unshift(current);
-    }
-    const attributes = Array.from(element.attributes)
-      .filter((attribute) => PICK_ATTRIBUTES.has(attribute.name))
-      .map((attribute) => ` ${attribute.name}="${pickAttributeValue(attribute).replace(/"/g, "&quot;")}"`)
-      .join("");
-    const text = (element.innerText || element.textContent || "").replace(/\s+/g, " ").trim();
-    return {
-      chain: chain.map(pickLabel),
-      html: truncate(`<${element.localName}${attributes}>`, PICK_MAX_HTML_CHARS),
-      text: text ? truncate(text, PICK_MAX_TEXT_CHARS) : undefined,
-    };
-  }
-
-  // Hover asks once per frame, and innerText on a large section forces layout,
-  // so only the rect is re-read while the pointer stays on the same element.
-  // Clicks ask for fresh details since the page may have changed the element.
-  let lastPick = null;
-
-  function describePickTarget(element, fresh) {
-    if (fresh || lastPick?.element !== element) {
-      lastPick = { element, details: describePickElement(element) };
-    }
-    const rect = element.getBoundingClientRect();
-    return {
-      rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
-      ...lastPick.details,
-    };
-  }
-
-  function inlineAll(original, clone) {
-    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
-
-    try {
-      const computedStyle = getComputedStyle(original);
-      // cssText on a computed style is the serialized declaration in modern
-      // Chromium/Safari — a single read beats enumerating ~400 longhand
-      // properties. Firefox returns "" here, so we fall back on empty.
-      const serialized = computedStyle.cssText;
-      if (serialized) {
-        clone.style.cssText = serialized;
-      } else {
-        const parts = new Array(computedStyle.length);
-        for (let index = 0; index < computedStyle.length; index += 1) {
-          const property = computedStyle[index];
-          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
-        }
-        clone.style.cssText = parts.join("");
-      }
-    } catch (_error) {}
-
-    const originalChildren = original.children;
-    const clonedChildren = clone.children;
-    for (
-      let index = 0;
-      index < originalChildren.length && index < clonedChildren.length;
-      index += 1
-    ) {
-      inlineAll(originalChildren[index], clonedChildren[index]);
-    }
-  }
-
-  function extractFontUrl(srcValue) {
-    const matches = [
-      ...srcValue.matchAll(
-        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
-      ),
-    ];
-    if (matches.length === 0) return null;
-    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
-    if (woff2) return woff2[1];
-    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
-    if (woff) return woff[1];
-    return matches[0][1];
-  }
-
-  // Cache resolved font URL -> data URI across captures. Fonts on a page
-  // essentially never change, and a batch run emits multiple captures back to
-  // back — without this we'd refetch + re-base64 every time.
-  const fontDataUriCache = new Map();
-  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
-
-  async function fetchAsDataUri(url) {
-    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
-    let dataUri = null;
-    try {
-      const response = await fetch(url, { mode: "cors", credentials: "omit" });
-      if (response.ok) {
-        const blob = await response.blob();
-        if (blob.size <= MAX_FONT_BYTES) {
-          dataUri = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () =>
-              resolve(typeof reader.result === "string" ? reader.result : null);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-          });
-        }
-      }
-    } catch (_error) {
-      dataUri = null;
-    }
-    fontDataUriCache.set(url, dataUri);
-    return dataUri;
-  }
-
-  function collectFontFaceRuleTexts() {
-    const rules = [];
-    for (const sheet of document.styleSheets) {
-      let cssRules;
-      try {
-        cssRules = sheet.cssRules;
-      } catch (_error) {
-        continue;
-      }
-      if (!cssRules) continue;
-      for (const rule of cssRules) {
-        const cssText = rule.cssText || "";
-        if (cssText.startsWith("@font-face")) rules.push(cssText);
-      }
-    }
-    return rules;
-  }
-
-  async function buildInlinedFontCss() {
-    const ruleTexts = collectFontFaceRuleTexts();
-    if (ruleTexts.length === 0) return null;
-
-    const resolved = ruleTexts.map((cssText) => {
-      if (!SRC_DECLARATION_RE.test(cssText)) return null;
-      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
-      if (!srcMatch) return null;
-      const url = extractFontUrl(srcMatch[1]);
-      if (!url) return null;
-      try {
-        return { cssText, url: new URL(url, document.baseURI).href };
-      } catch (_error) {
-        return null;
-      }
-    });
-
-    const dataUris = await Promise.all(
-      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
-    );
-
-    const inlined = [];
-    let totalBytes = 0;
-    for (let index = 0; index < resolved.length; index += 1) {
-      const entry = resolved[index];
-      const dataUri = dataUris[index];
-      if (!entry || !dataUri) continue;
-      const approxBytes = dataUri.length * 0.75;
-      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
-      totalBytes += approxBytes;
-      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
-    }
-    return inlined.length > 0 ? inlined.join("\n") : null;
-  }
-
-  function stripExternal(clone) {
-    const images = clone.querySelectorAll("img");
-    for (let index = 0; index < images.length; index += 1) {
-      const src = images[index].getAttribute("src");
-      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
-    }
-
-    const elements = clone.querySelectorAll("*");
-    for (let index = 0; index < elements.length; index += 1) {
-      const style = elements[index].style.cssText;
-      if (style && style.includes("url(")) {
-        elements[index].style.cssText = style.replace(
-          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
-          "none",
-        );
-      }
-    }
-  }
-
-  function emitScroll() {
-    scrollRaf = 0;
-    if (!scrollForwarding) return;
-    postToTrustedTop({
-      type: "INLINE_EDIT_SCROLL",
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
-      capabilities: PICK_CAPABILITIES,
-    });
-  }
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollForwarding || scrollRaf) return;
-      scrollRaf = requestAnimationFrame(emitScroll);
-    },
-    { passive: true, capture: true },
-  );
-
-  async function handleCaptureRequest(event) {
-    const requestId = event.data.requestId;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    function postResult(dataUrl) {
-      postToTrustedTop({
-        type: "INLINE_EDIT_SCREENSHOT_RESULT",
-        requestId,
-        dataUrl,
-        scrollX,
-        scrollY,
-      });
-    }
-
-    try {
-      // Wait for any pending web fonts to resolve so both inline metrics and
-      // the @font-face inlining below see the same loaded faces.
-      if (document.fonts && document.fonts.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_error) {}
-      }
-
-      const clone = document.documentElement.cloneNode(true);
-      inlineAll(document.documentElement, clone);
-
-      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
-      for (let index = 0; index < removedNodes.length; index += 1) {
-        removedNodes[index].remove();
-      }
-
-      stripExternal(clone);
-
-      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
-      // can resolve them — external font URLs aren't fetched during
-      // foreignObject rendering, which would otherwise force a fallback face
-      // and change text metrics.
-      const inlinedFontCss = await buildInlinedFontCss();
-      if (inlinedFontCss) {
-        const styleEl = document.createElement("style");
-        styleEl.textContent = inlinedFontCss;
-        const head = clone.querySelector("head");
-        if (head) head.appendChild(styleEl);
-        else clone.insertBefore(styleEl, clone.firstChild);
-      }
-
-      const html = new XMLSerializer().serializeToString(clone);
-      const svg =
-        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-        '<foreignObject width="100%" height="100%">' +
-        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
-        html +
-        "</div></div></foreignObject></svg>";
-      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        postResult(canvas.toDataURL("image/png"));
-      };
-      image.onerror = function () {
-        postResult(null);
-      };
-      image.src = svgUrl;
-    } catch (_error) {
-      postResult(null);
-    }
-  }
-
-  window.addEventListener("message", function (event) {
-    if (!event.data) return;
-    // Only accept messages from the direct parent frame. Blocks sibling /
-    // unrelated-window postMessage senders that could otherwise reach us.
-    if (event.source !== window.parent) return;
-
-    const trustedParentOrigin = getTrustedParentOrigin(event);
-    if (!trustedParentOrigin) return;
-    trustedTopOrigin = trustedParentOrigin;
-
-    if (event.data.type === "INLINE_EDIT_PICK") {
-      const element = resolvePickTarget(event.data.x, event.data.y);
-      postToTrustedTop({
-        type: "INLINE_EDIT_PICK_RESULT",
-        seq: event.data.seq,
-        target: element ? describePickTarget(element, event.data.fresh === true) : null,
-      });
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
-      scrollForwarding = true;
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
-      scrollForwarding = false;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = 0;
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_BY") {
-      const { deltaX, deltaY, deltaMode } = event.data;
-      if (!scrollForwarding || !Number.isFinite(deltaX) || !Number.isFinite(deltaY)) return;
-      if (deltaMode !== 0 && deltaMode !== 1 && deltaMode !== 2) return;
-      const lineHeight =
-        parseFloat(getComputedStyle(document.documentElement).lineHeight) || DEFAULT_LINE_HEIGHT;
-      const scaleX = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerWidth : 1;
-      const scaleY = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerHeight : 1;
-      // The selection overlay receives the wheel event instead of this iframe.
-      // Instant scrolling preserves trackpad deltas even on smooth-scroll sites.
-      window.scrollBy({ left: deltaX * scaleX, top: deltaY * scaleY, behavior: "instant" });
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
-
-    handleCaptureRequest(event);
-  });
-})();
-
-
-</script></body>
+</body>
 </html>

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "firefox-desktop",
+    "ok": true,
+    "checks": 30,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "webkit-desktop",
+    "ok": true,
+    "checks": 30,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "webkit-iphone-emulation",
+    "ok": true,
+    "checks": 33,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "chromium-android-emulation",
+    "ok": true,
+    "checks": 33,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "cdn-first-failed",
+    "ok": true,
+    "checks": 3,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "cdn-first-two-failed",
+    "ok": true,
+    "checks": 3,
+    "failedChecks": [],
+    "pageErrors": []
+  },
+  {
+    "name": "cdn-all-failed",
+    "ok": true,
+    "checks": 6,
+    "failedChecks": [],
+    "pageErrors": []
+  }
+]

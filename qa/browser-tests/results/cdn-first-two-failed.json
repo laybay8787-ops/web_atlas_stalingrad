@@ -1,0 +1,31 @@
+{
+  "name": "cdn-first-two-failed",
+  "blockedHosts": [
+    "cdn.jsdelivr.net",
+    "cdnjs.cloudflare.com"
+  ],
+  "requestedCdn": [
+    "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css",
+    "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js",
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ],
+  "checks": [
+    {
+      "ok": true,
+      "message": "Leaflet загружен через резервный CDN"
+    },
+    {
+      "ok": true,
+      "message": "Аварийное сообщение не показано"
+    },
+    {
+      "ok": true,
+      "message": "Нет необработанных исключений"
+    }
+  ],
+  "pageErrors": [],
+  "ok": true
+}
