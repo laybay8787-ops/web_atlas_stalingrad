@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="origin">
   <meta name="theme-color" content="#991b1b">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23991b1b'/%3E%3Cpath d='M32 10c-9.4 0-17 7.5-17 16.8C15 39 32 54 32 54s17-15 17-27.2C49 17.5 41.4 10 32 10Z' fill='%23fff'/%3E%3Ccircle cx='32' cy='27' r='7' fill='%23991b1b'/%3E%3C/svg%3E">
   <meta name="description" content="Интерактивный веб-атлас Сталинградской битвы: исторические слои, объекты обороны и современный Волгоград.">
   <title>Веб-атлас Сталинградской битвы — цифровой двойник города</title>
   <!-- Leaflet загружается последовательно с нескольких CDN; сайт не ломается, если один источник недоступен. -->
@@ -185,6 +186,10 @@
       gap: 8px; font-size: 12.5px; margin-top: 6px;
     }
     .slider-row input[type="range"] { flex: 1; accent-color: var(--accent); }
+    .archive-priority-note {
+      padding-left: 0; margin-top: 8px; line-height: 1.45;
+      color: #374151;
+    }
 
     .legend-list { display: grid; grid-template-columns: 24px 1fr; gap: 6px 8px; align-items: center; font-size: 12px; }
     .swatch { width: 22px; height: 12px; border-radius: 3px; }
@@ -631,13 +636,17 @@
         </div>
       </div>
       <div class="slider-row">
-        <label for="rngOpacity">Прозрачность карты 1942 г.:</label>
+        <label for="rngOpacity">Видимость архива и улиц 1942 г.:</label>
         <input type="range" id="rngOpacity" min="0" max="100" value="92" aria-valuetext="92%">
         <strong id="lblOpacity" style="width:36px;text-align:right;">92%</strong>
       </div>
+      <div class="layer-desc archive-priority-note">
+        Архивный снимок — основа карты, а улицы и их названия показываются поверх него. Оба слоя видны одновременно; ползунок регулирует их общую прозрачность.
+      </div>
     </div>
 
-    <div>
+    <!-- Слой сохранён в коде, но по требованию владельца полностью скрыт из интерфейса. -->
+    <div id="aerial1943LayerSection" hidden>
       <div class="section-hdr">4. Немецкий аэроснимок (март 1943 г.)</div>
       <div class="layer-option">
         <label><input type="checkbox" id="chkAerial1943"><span>Аэроснимок с разметкой объектов</span></label>
@@ -649,7 +658,7 @@
     </div>
 
     <div>
-      <div class="section-hdr">5. Объекты: судьба застройки</div>
+      <div class="section-hdr">4. Объекты: судьба застройки</div>
       <div class="layer-option">
         <label><input type="checkbox" id="chkObjects" aria-describedby="objectsHelp"><span>Сохранившиеся и утраченные здания</span></label>
         <div class="layer-desc" id="objectsHelp">
@@ -856,6 +865,9 @@ const map = L.map('map', {
   zoomControl: false,
   attributionControl: true
 });
+// В стандартном префиксе Leaflet 1.9.4 есть SVG-флаг. Оставляем только текстовую
+// ссылку на библиотеку: это постоянное требование проекта для всех устройств.
+map.attributionControl.setPrefix('<a href="https://leafletjs.com/" target="_blank" rel="noopener noreferrer">Leaflet</a>');
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(map);
 // Современные объекты вынесены из исторической панели: шторка/прозрачность не должны их обрезать.
@@ -877,17 +889,16 @@ map.on('zoomend', updateMapLabelScale);
 updateMapLabelScale();
 // Атрибуция остаётся на карте и дополнительно продублирована в диалоге «Источники».
 
-// Панели исторических слоёв:
-// eraTilesPane (z=440) — аэрофото 1942/1943, st1942Pane (z=450) — тёмная векторная карта 1942 г.
+// Архивный снимок — визуальная основа, а улицы, линии и подписи 1942 года
+// расположены поверх него. Оба слоя видны одновременно и имеют общую прозрачность.
 // Обе панели отсекаются шторкой: слева всегда Сталинград, справа — современный Волгоград.
 const eraTilesPane = map.createPane('eraTilesPane');
 eraTilesPane.style.zIndex = 440;
 const histPane = map.createPane('st1942Pane');
 histPane.style.zIndex = 450;
-// Отдельная панель для немецкого аэроснимка с разметкой — ПОВЕРХ тёмной карты 1942 г.
-// (SVG-рендерер Leaflet имеет z-index 200 и раньше закрашивал снимок)
+// Отдельная панель для скрытого немецкого аэроснимка с разметкой — выше обоих слоёв.
 const aerialAnnotPane = map.createPane('aerialAnnotPane');
-aerialAnnotPane.style.zIndex = 455; // выше карты 1942 г. (450), ниже маркеров (470)
+aerialAnnotPane.style.zIndex = 455;
 
 // ============ 2. Подложки ============
 const osmAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>';
@@ -895,9 +906,56 @@ const detailedBase = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/
   maxZoom: 19, attribution: osmAttribution + ', стиль <a href="https://www.hotosm.org/" target="_blank" rel="noopener noreferrer">HOT</a>'
 }).addTo(map);
 
-const cartoLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  maxZoom: 19, attribution: osmAttribution + ' &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>'
-});
+// CARTO прекратила отдавать растровые light_all без API-ключа. Используем официальный
+// векторный Positron — эквивалент light_all. MapLibre подгружается только по выбору схемы.
+const cartoAttribution = osmAttribution + ' &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a>';
+const cartoLight = L.layerGroup();
+cartoLight.getAttribution = () => cartoAttribution;
+let cartoVectorLayer = null;
+let cartoLoadingPromise = null;
+
+function loadCartoScript(src, readyCheck) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = () => readyCheck() ? resolve() : reject(new Error('CARTO: библиотека не инициализирована'));
+    script.onerror = () => reject(new Error('CARTO: не удалось загрузить библиотеку'));
+    document.head.appendChild(script);
+  });
+}
+
+function ensureCartoLight() {
+  if (cartoVectorLayer) return Promise.resolve(cartoLight);
+  if (cartoLoadingPromise) return cartoLoadingPromise;
+  if (!document.getElementById('maplibreCss')) {
+    const link = document.createElement('link');
+    link.id = 'maplibreCss';
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css';
+    document.head.appendChild(link);
+  }
+  cartoLoadingPromise = loadCartoScript(
+    'https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js',
+    () => Boolean(window.maplibregl)
+  ).then(() => loadCartoScript(
+    'https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.20/leaflet-maplibre-gl.js',
+    () => typeof L.maplibreGL === 'function'
+  )).then(() => {
+    cartoVectorLayer = L.maplibreGL({
+      style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+      className: 'carto-light-canvas',
+      interactive: false,
+      maxZoom: 20
+    });
+    cartoVectorLayer.getAttribution = () => cartoAttribution;
+    cartoLight.addLayer(cartoVectorLayer);
+    return cartoLight;
+  }).catch(error => {
+    cartoLoadingPromise = null;
+    throw error;
+  });
+  return cartoLoadingPromise;
+}
 
 const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   maxZoom: 19, attribution: '&copy; <a href="https://www.esri.com/" target="_blank" rel="noopener noreferrer">Esri</a>, Maxar, Earthstar Geographics, GIS User Community'
@@ -918,6 +976,38 @@ const aerial43 = L.tileLayer('https://volmap.ru/files/st43/{z}/{y}/{x}.jpg', {
 const modernBases = { detailed: detailedBase, carto: cartoLight, sat: esriSat };
 let currentEra = 'modern';
 
+function applyLayerOpacity(value) {
+  const percent = Math.max(0, Math.min(100, Number(value)));
+  const opacity = percent / 100;
+  const selectedBase = document.querySelector('input[name="baseMap"]:checked')?.value;
+  const lightModern = currentEra === 'modern' && selectedBase === 'carto';
+  // Архив и исторические улицы видны одновременно: общий ползунок задаёт им
+  // одинаковую прозрачность. В архивных эпохах тёмное полотно отключается,
+  // чтобы под линиями и подписями был виден именно аэрофотоснимок.
+  const vectorOpacity = lightModern ? opacity * 0.12 : opacity;
+  vectorBackground.setStyle({ fillOpacity: currentEra === 'modern' ? 1 : 0 });
+  histPane.style.opacity = String(Number(vectorOpacity.toFixed(3)));
+  eraTilesPane.style.opacity = String(opacity);
+  const rng = document.getElementById('rngOpacity');
+  rng.value = String(percent);
+  rng.setAttribute('aria-valuetext', percent + '%');
+  document.getElementById('lblOpacity').textContent = percent + '%';
+}
+
+function activateModernBase(key) {
+  modernBases[key].addTo(map);
+  if (key !== 'carto') return;
+  ensureCartoLight().catch(() => {
+    const selected = document.querySelector('input[name="baseMap"]:checked')?.value;
+    if (selected !== 'carto') return;
+    map.removeLayer(cartoLight);
+    detailedBase.addTo(map);
+    document.querySelector('input[name="baseMap"][value="detailed"]').checked = true;
+    applyLayerOpacity(document.getElementById('rngOpacity').value);
+    showEraHint('Светлая схема временно недоступна', 'Включена подробная карта. Проверьте подключение и выберите CARTO ещё раз.');
+  });
+}
+
 function setEra(era) {
   currentEra = era;
   // современная подложка работает всегда (радио-выбор), аэрофото — поверх неё
@@ -926,7 +1016,7 @@ function setEra(era) {
   map.removeLayer(aerial43);
   let sel = document.querySelector('input[name="baseMap"]:checked');
   if (!sel) { document.querySelector('input[name="baseMap"][value="detailed"]').checked = true; sel = document.querySelector('input[name="baseMap"]:checked'); }
-  modernBases[sel.value].addTo(map);
+  activateModernBase(sel.value);
   if (era === '1942') {
     aerial42.addTo(map);
     if (!map.hasLayer(stalingrad1942VectorGroup)) { stalingrad1942VectorGroup.addTo(map); document.getElementById('chkVector1942').checked = true; }
@@ -953,15 +1043,8 @@ function setEra(era) {
   // заголовок секции шторки тоже показывает активную эпоху
   const swipeTitle = document.getElementById('swipeSectionTitle');
   if (swipeTitle) swipeTitle.textContent = 'Шторка: Волгоград ⇄ Сталинград ' + (era === 'modern' ? '1942' : era);
-  // Одно значение прозрачности применяется и к векторной карте, и к аэрофото.
-  const rng = document.getElementById('rngOpacity');
-  const lbl = document.getElementById('lblOpacity');
-  if (era === 'modern') {
-    histPane.style.opacity = 0.92; eraTilesPane.style.opacity = 0.92; rng.value = 92; lbl.textContent = '92%';
-  } else {
-    histPane.style.opacity = 0.55; eraTilesPane.style.opacity = 0.55; rng.value = 55; lbl.textContent = '55%';
-  }
-  rng.setAttribute('aria-valuetext', rng.value + '%');
+  // В архивных эпохах 55 % сохраняют одновременно читаемыми снимок и подписи улиц.
+  applyLayerOpacity(era === 'modern' ? 92 : 55);
   updateSwipeClip();
 }
 
@@ -984,8 +1067,9 @@ function hideEraHint() { eraHint.style.display = 'none'; }
 const SHEET = [[48.60, 44.35], [48.84, 44.75]]; // «лист» карты (в пределах проверенных данных)
 const stalingrad1942VectorGroup = L.layerGroup();
 
-// Лист карты (тёмное полотно)
-L.polygon([
+// Тёмное полотно нужно только в современном режиме. В архивных эпохах оно
+// становится прозрачным, чтобы не закрывать аэрофотосъёмку под улицами.
+const vectorBackground = L.polygon([
   [SHEET[0][0], SHEET[0][1]], [SHEET[0][0], SHEET[1][1]],
   [SHEET[1][0], SHEET[1][1]], [SHEET[1][0], SHEET[0][1]]
 ], { pane: 'st1942Pane', stroke: false, fillColor: '#16191e', fillOpacity: 1, interactive: false })
@@ -1539,10 +1623,11 @@ document.addEventListener('keydown', e => {
 // ============ 8. Переключение подложек и слоёв ============
 document.querySelectorAll('input[name="baseMap"]').forEach(radio => {
   radio.addEventListener('change', e => {
-    // Меняем только современную подложку: эпоха, исторические слои и прозрачность
-    // являются независимыми пользовательскими настройками.
+    // Эпоха, выбранные слои и значение ползунка сохраняются. Меняется только
+    // относительная сила векторной подложки, необходимая для видимости CARTO Light.
     [detailedBase, cartoLight, esriSat].forEach(layer => map.removeLayer(layer));
-    modernBases[e.target.value].addTo(map);
+    activateModernBase(e.target.value);
+    applyLayerOpacity(document.getElementById('rngOpacity').value);
   });
 });
 
@@ -1602,11 +1687,7 @@ document.getElementById('chkObjects').addEventListener('change', e => {
 });
 
 document.getElementById('rngOpacity').addEventListener('input', e => {
-  const v = Number(e.target.value) / 100;
-  histPane.style.opacity = v;
-  eraTilesPane.style.opacity = v;
-  document.getElementById('lblOpacity').textContent = e.target.value + '%';
-  e.target.setAttribute('aria-valuetext', e.target.value + '%');
+  applyLayerOpacity(e.target.value);
 });
 
 // ============ 9. Шторка сравнения ============
@@ -1764,8 +1845,7 @@ document.getElementById('btnSwapSides').addEventListener('click', () => {
   updateSwipeClip();
 });
 
-histPane.style.opacity = 0.92;
-eraTilesPane.style.opacity = 0.92;
+applyLayerOpacity(92);
 
 // Стартовый клип листа карты
 map.whenReady(updateSwipeClip);

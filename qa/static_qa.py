@@ -65,7 +65,8 @@ for tag, attrs in parser.controls:
 missing_rel = [a.get("href") for a in parser.blank_links if "noopener" not in (a.get("rel") or "")]
 missing_alt = [a.get("src", "")[:100] for a in parser.images if "alt" not in a]
 js_id_refs = sorted(set(re.findall(r"getElementById\([\"']([^\"']+)[\"']\)", script)))
-missing_ids = [id_ for id_ in js_id_refs if id_ not in parser.ids]
+dynamic_ids = set(re.findall(r"\.id\s*=\s*[\"']([^\"']+)[\"']", script))
+missing_ids = [id_ for id_ in js_id_refs if id_ not in parser.ids and id_ not in dynamic_ids]
 
 coordinate_issues = []
 coordinate_count = 0

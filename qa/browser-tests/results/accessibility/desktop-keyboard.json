@@ -157,7 +157,7 @@
       "id": "",
       "role": null,
       "ariaLabel": null,
-      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nЗ-Д «КРАСНЫЙ ОКТЯБРЬ»\nЗ-Д «БАРРИКАДЫ»\nСТЗ (ТРАКТОРНЫ",
       "visible": true,
       "rect": {
         "x": 0,
@@ -173,7 +173,7 @@
       "id": "map",
       "role": "application",
       "ariaLabel": "Интерактивная карта Сталинграда и современного Волгограда",
-      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nДОМ ПАВЛОВА • МЕЛЬНИЦА ГЕРГАРДТА\nЗ-Д «КРАСНЫЙ ОКТЯБР",
+      "text": "МАМАЕВ КУРГАН (выс. 102,0)\n«Родина-мать зовёт!»\nЗ-Д «КРАСНЫЙ ОКТЯБРЬ»\nЗ-Д «БАРРИКАДЫ»\nСТЗ (ТРАКТОРНЫ",
       "visible": true,
       "rect": {
         "x": 0,
@@ -192,10 +192,10 @@
       "text": "",
       "visible": true,
       "rect": {
-        "x": 643.8583984375,
-        "y": 295.36456298828125,
-        "width": 27.330078125,
-        "height": 27.33013916015625
+        "x": 648.026123046875,
+        "y": 282.2215576171875,
+        "width": 28.580322265625,
+        "height": 28.5802001953125
       },
       "inViewport": true,
       "insideDialog": false
@@ -240,9 +240,9 @@
       "text": "Leaflet",
       "visible": true,
       "rect": {
-        "x": 837.140625,
+        "x": 852.484375,
         "y": 750.203125,
-        "width": 51.375,
+        "width": 36.03125,
         "height": 14
       },
       "inViewport": true,
@@ -541,29 +541,13 @@
       "id": "rngOpacity",
       "role": null,
       "ariaLabel": null,
-      "text": "55",
+      "text": "92",
       "visible": true,
       "rect": {
-        "x": 167.703125,
+        "x": 169.453125,
         "y": 654.546875,
         "width": 129,
         "height": 16
-      },
-      "inViewport": true,
-      "insideDialog": false
-    },
-    {
-      "tag": "INPUT",
-      "id": "chkAerial1943",
-      "role": null,
-      "ariaLabel": null,
-      "text": "on",
-      "visible": true,
-      "rect": {
-        "x": 27,
-        "y": 727.546875,
-        "width": 13,
-        "height": 13
       },
       "inViewport": true,
       "insideDialog": false
@@ -577,7 +561,7 @@
       "visible": true,
       "rect": {
         "x": 27,
-        "y": 474.75,
+        "y": 474.234375,
         "width": 13,
         "height": 13
       },
@@ -656,10 +640,10 @@
       "text": "",
       "visible": true,
       "rect": {
-        "x": 654.2579345703125,
-        "y": 284.8832092285156,
-        "width": 28.3277587890625,
-        "height": 28.32769775390625
+        "x": 655.4344482421875,
+        "y": 275.3862609863281,
+        "width": 29.2039794921875,
+        "height": 29.20391845703125
       },
       "inViewport": true,
       "insideDialog": false
@@ -704,9 +688,25 @@
       "text": "Leaflet",
       "visible": true,
       "rect": {
-        "x": 837.140625,
+        "x": 852.484375,
         "y": 750.203125,
-        "width": 51.375,
+        "width": 36.03125,
+        "height": 14
+      },
+      "inViewport": true,
+      "insideDialog": false
+    },
+    {
+      "tag": "A",
+      "id": "",
+      "role": null,
+      "ariaLabel": null,
+      "text": "OpenStreetMap",
+      "visible": true,
+      "rect": {
+        "x": 910.5,
+        "y": 750.203125,
+        "width": 84.71875,
         "height": 14
       },
       "inViewport": true,

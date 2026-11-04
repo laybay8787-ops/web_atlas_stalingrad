@@ -1,0 +1,14 @@
+{
+  "name": "web-atlas-stalingrad",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 7100",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 7100"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  }
+}

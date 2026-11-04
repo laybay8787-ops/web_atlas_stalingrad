@@ -2,28 +2,28 @@
   {
     "name": "firefox-desktop",
     "ok": true,
-    "checks": 30,
+    "checks": 31,
     "failedChecks": [],
     "pageErrors": []
   },
   {
     "name": "webkit-desktop",
     "ok": true,
-    "checks": 30,
+    "checks": 31,
     "failedChecks": [],
     "pageErrors": []
   },
   {
     "name": "webkit-iphone-emulation",
     "ok": true,
-    "checks": 33,
+    "checks": 34,
     "failedChecks": [],
     "pageErrors": []
   },
   {
     "name": "chromium-android-emulation",
     "ok": true,
-    "checks": 33,
+    "checks": 34,
     "failedChecks": [],
     "pageErrors": []
   },

@@ -240,9 +240,9 @@
       "text": "Leaflet",
       "visible": true,
       "rect": {
-        "x": 182.109375,
+        "x": 197.453125,
         "y": 789.203125,
-        "width": 51.375,
+        "width": 36.03125,
         "height": 14
       },
       "inViewport": true,
@@ -512,9 +512,9 @@
       "text": "Leaflet",
       "visible": true,
       "rect": {
-        "x": 182.109375,
+        "x": 197.453125,
         "y": 789.203125,
-        "width": 51.375,
+        "width": 36.03125,
         "height": 14
       },
       "inViewport": true,

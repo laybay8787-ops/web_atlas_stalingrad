@@ -92,9 +92,9 @@
         },
         {
           "target": [
-            "a[href$=\"leafletjs.com\"]"
+            ".leaflet-control-attribution > a[href$=\"leafletjs.com/\"][target=\"_blank\"][rel=\"noopener noreferrer\"]"
           ],
-          "html": "<a href=\"https://leafletjs.com\" title=\"A JavaScript library for interactive maps\">",
+          "html": "<a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Leaflet</a>",
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
         },
         {
@@ -306,9 +306,9 @@
       "nodes": [
         {
           "target": [
-            "a[href$=\"leafletjs.com\"]"
+            ".leaflet-control-attribution > a[href$=\"leafletjs.com/\"][target=\"_blank\"][rel=\"noopener noreferrer\"]"
           ],
-          "html": "<a href=\"https://leafletjs.com\" title=\"A JavaScript library for interactive maps\">",
+          "html": "<a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Leaflet</a>",
           "failureSummary": "Fix any of the following:\n  Element's contrast ratio could not be determined because element contains an image node"
         },
         {

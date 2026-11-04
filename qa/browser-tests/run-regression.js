@@ -40,6 +40,13 @@ async function setRange(page, selector, value) {
     const attributionText = await attribution.textContent();
     check(attributionText.includes('OpenStreetMap') && attributionText.includes('HOT'),
       'Атрибуция содержит OSM и HOT', result.checks);
+    check(await attribution.locator('.leaflet-attribution-flag').count() === 0,
+      'В атрибуции нет стандартного SVG-флага Leaflet', result.checks);
+    check(!/ukrain|украин/i.test(await attribution.innerHTML()),
+      'В атрибуции нет упоминаний Украины', result.checks);
+    check(await page.locator('#aerial1943LayerSection').isHidden() &&
+      await page.locator('#chkAerial1943').count() === 1,
+      'Немецкий аэроснимок скрыт из интерфейса, но сохранён в коде', result.checks);
     const attributionRect = await attribution.boundingBox();
     check(attributionRect && attributionRect.y + attributionRect.height <= 772,
       'Атрибуция не перекрыта нижней панелью', result.checks);
@@ -50,11 +57,19 @@ async function setRange(page, selector, value) {
     }));
     let opacity = await paneOpacity();
     check(opacity.vector === '0.92' && opacity.aerial === '0.92',
-      'В современной эпохе обе панели имеют прозрачность 0.92', result.checks);
+      'В современной эпохе обе панели имеют непрозрачность 0.92', result.checks);
     await page.locator('[data-era="1942"]').click();
     opacity = await paneOpacity();
-    check(opacity.vector === '0.55' && opacity.aerial === '0.55',
-      'В эпохе 1942 года обе панели имеют прозрачность 0.55', result.checks);
+    check(opacity.vector === '0.35' && opacity.aerial === '0.92',
+      'Архив 1942 года имеет приоритет, а векторная подложка приглушена', result.checks);
+    check(await page.locator('#chkVector1942').isChecked(),
+      'Векторный слой остаётся включённым при просмотре архива', result.checks);
+    const paneOrder = await page.evaluate(() => ({
+      vector: Number(document.querySelector('.leaflet-st1942-pane').style.zIndex),
+      aerial: Number(document.querySelector('.leaflet-eraTiles-pane').style.zIndex)
+    }));
+    check(paneOrder.aerial > paneOrder.vector,
+      'Панель архивного снимка расположена выше векторной подложки', result.checks);
 
     await setRange(page, '#rngOpacity', 0);
     opacity = await paneOpacity();
@@ -62,13 +77,24 @@ async function setRange(page, selector, value) {
       'При значении 0% полностью скрываются и аэрофото, и векторный слой', result.checks);
     await setRange(page, '#rngOpacity', 23);
     opacity = await paneOpacity();
-    check(opacity.vector === '0.23' && opacity.aerial === '0.23',
-      'Ползунок одинаково меняет прозрачность аэрофото и векторного слоя', result.checks);
+    check(opacity.vector === '0.087' && opacity.aerial === '0.23',
+      'Ползунок регулирует оба слоя с сохранением приоритета архива', result.checks);
     check(await page.locator('#rngOpacity').getAttribute('aria-valuetext') === '23%',
-      'Прозрачность озвучивается в процентах', result.checks);
+      'Непрозрачность озвучивается в процентах', result.checks);
 
     await page.locator('#chkVector1942').uncheck();
+    const cartoStyleResponse = page.waitForResponse(response =>
+      response.url().includes('basemaps.cartocdn.com/gl/positron-gl-style/style.json'), { timeout: 30000 });
+    const cartoVectorResponse = page.waitForResponse(response =>
+      response.url().includes('vectortiles/carto.streets/') && response.url().includes('.mvt'), { timeout: 30000 });
     await page.locator('input[name="baseMap"][value="carto"]').check();
+    check((await cartoStyleResponse).status() === 200,
+      'Официальный стиль CARTO Positron успешно загружается', result.checks);
+    check((await cartoVectorResponse).status() === 200,
+      'Векторные MVT-тайлы CARTO успешно загружаются', result.checks);
+    await page.locator('canvas.carto-light-canvas').waitFor({ state: 'visible', timeout: 30000 });
+    check(await page.locator('canvas.carto-light-canvas').evaluate(canvas => canvas.width > 0 && canvas.height > 0),
+      'CARTO Positron реально отрисован в WebGL-canvas', result.checks);
     check(await page.locator('[data-era="1942"]').getAttribute('aria-pressed') === 'true',
       'Смена подложки не сбрасывает выбранную эпоху', result.checks);
     check(await page.locator('#chkAerial42').isChecked(),
@@ -76,8 +102,14 @@ async function setRange(page, selector, value) {
     check(!(await page.locator('#chkVector1942').isChecked()),
       'Смена подложки не включает векторный слой против выбора пользователя', result.checks);
     opacity = await paneOpacity();
-    check(opacity.vector === '0.23' && opacity.aerial === '0.23',
-      'Смена подложки не сбрасывает прозрачность', result.checks);
+    check(opacity.vector === '0.087' && opacity.aerial === '0.23',
+      'Смена подложки не сбрасывает непрозрачность', result.checks);
+    await page.locator('[data-era="modern"]').click();
+    opacity = await paneOpacity();
+    check(opacity.vector === '0.11' && opacity.aerial === '0.92',
+      'В современной схеме CARTO тёмный вектор приглушён и не закрывает подложку', result.checks);
+    check(await page.locator('canvas.carto-light-canvas').isVisible(),
+      'CARTO Positron остаётся видимым после возврата в современность', result.checks);
 
     await setRange(page, '#rngSwipe', 64);
     check(await page.locator('#rngSwipe').getAttribute('aria-valuetext') === '64%',

@@ -35,6 +35,10 @@
     },
     {
       "ok": true,
+      "message": "CARTO Positron отрисован в WebGL-canvas"
+    },
+    {
+      "ok": true,
       "message": "Подложка sat выбрана"
     },
     {

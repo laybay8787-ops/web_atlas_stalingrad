@@ -27,9 +27,9 @@
       "nodes": [
         {
           "target": [
-            ".active"
+            "button[data-era=\"modern\"]"
           ],
-          "html": "<button class=\"era-btn active\" type=\"button\" data-era=\"1942\" aria-pressed=\"true\">Сталинград 1942</button>",
+          "html": "<button class=\"era-btn\" type=\"button\" data-era=\"modern\" aria-pressed=\"false\">Современность</button>",
           "failureSummary": "Fix all of the following:\n  Axe encountered an error; test the page for this type of problem manually"
         }
       ]
@@ -73,9 +73,9 @@
       "nodes": [
         {
           "target": [
-            "a[href$=\"leafletjs.com\"]"
+            ".leaflet-control-attribution > a[href$=\"leafletjs.com/\"][target=\"_blank\"][rel=\"noopener noreferrer\"]"
           ],
-          "html": "<a href=\"https://leafletjs.com\" title=\"A JavaScript library for interactive maps\">",
+          "html": "<a href=\"https://leafletjs.com/\" target=\"_blank\" rel=\"noopener noreferrer\">Leaflet</a>",
           "failureSummary": "Fix any of the following:\n  Element's foreground contrast ratio could not be determined"
         },
         {

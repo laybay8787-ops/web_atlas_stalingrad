@@ -6,6 +6,10 @@ const TARGET = process.env.ATLAS_URL || 'https://laybay8787-ops.github.io/web_at
 const OUT = path.resolve(__dirname, 'results');
 fs.mkdirSync(OUT, { recursive: true });
 const chromePath = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// В WebKit 27.2 document.fonts.ready может остаться pending после удаления MapLibre,
+// хотя сайт использует только системные CSS-шрифты. PBF-глифы карты не относятся к
+// document.fonts, поэтому для тестовых скриншотов это ожидание избыточно.
+process.env.PW_TEST_SCREENSHOT_NO_FONTS_READY = '1';
 
 function check(condition, message, checks) {
   checks.push({ ok: Boolean(condition), message });
@@ -49,9 +53,20 @@ async function coreScenario(name, browserType, launchOptions, contextOptions) {
     };
 
     await setPanel('sidebar', true);
+    let cartoVectorResponse = null;
     for (const base of ['carto', 'sat', 'detailed']) {
+      if (base === 'carto') {
+        cartoVectorResponse = page.waitForResponse(response =>
+          response.url().includes('vectortiles/carto.streets/') && response.url().includes('.mvt'), { timeout: 60000 });
+      }
       await page.locator(`input[name="baseMap"][value="${base}"]`).check();
       check(await page.locator(`input[name="baseMap"][value="${base}"]`).isChecked(), `Подложка ${base} выбрана`, result.checks);
+      if (base === 'carto') {
+        await page.locator('canvas.carto-light-canvas').waitFor({ state: 'visible', timeout: 60000 });
+        await cartoVectorResponse;
+        check(await page.locator('canvas.carto-light-canvas').evaluate(canvas => canvas.width > 0 && canvas.height > 0),
+          'CARTO Positron отрисован в WebGL-canvas', result.checks);
+      }
     }
     await setPanel('sidebar', false);
 
@@ -104,7 +119,7 @@ async function coreScenario(name, browserType, launchOptions, contextOptions) {
     result.horizontalOverflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
     check(!result.horizontalOverflow, 'Нет горизонтального переполнения документа', result.checks);
     check(result.pageErrors.length === 0, 'Нет необработанных ошибок JavaScript', result.checks);
-    await page.screenshot({ path: path.join(OUT, `${name}.png`), fullPage: false });
+    await page.screenshot({ path: path.join(OUT, `${name}.png`), fullPage: false, timeout: 60000 });
     result.ok = result.checks.every(x => x.ok);
   } catch (error) {
     result.ok = false;
